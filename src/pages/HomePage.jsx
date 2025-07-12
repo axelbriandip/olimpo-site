@@ -1,5 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import NoticiasRecientes from "../components/NoticesLatest";
+import WelcomeCarousel from "../components/WelcomeCarousel";
+
 
 const HomePage = () => {
   return (
@@ -8,6 +10,7 @@ const HomePage = () => {
         title="Bienvenido al Club Olimpo"
         description="Explorá nuestro sitio para conocer más sobre nosotros, nuestros equipos y las últimas noticias."
       />
+      <WelcomeCarousel />
       <NoticiasRecientes />
       {/* <PlantelesDestacados /> */}
       {/* <HistoriaDelClub /> */}
