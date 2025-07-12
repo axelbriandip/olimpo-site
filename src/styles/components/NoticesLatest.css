@@ -1,0 +1,141 @@
+.notices-latest {
+  margin: 2rem auto;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.notices-latest h2 {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #222;
+}
+
+.notices-latest ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.notices-latest li {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 1.2rem 1.5rem;
+  gap: 1.2rem;
+  transition: box-shadow 0.2s;
+}
+
+.notices-latest li:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.notices-latest__image {
+  width: 200px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  align-self: center;
+  justify-self: center;
+}
+
+.notices-latest__info {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+}
+
+.notices-latest h3 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.15rem;
+  color: #1a237e;
+  align-self: start;
+}
+
+.notices-latest p {
+  margin: 0;
+  color: #444;
+  font-size: 1rem;
+  align-self: center;
+}
+
+.notices-latest__bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 2rem;
+}
+
+.notices-latest small {
+  color: #888;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 0;
+  align-self: end;
+}
+
+.notices-latest__button {
+  background: #1a237e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 1rem;
+  margin-top: 0;
+}
+
+.notices-latest__button:hover {
+  background: #3949ab;
+}
+
+@media (max-width: 900px) {
+  .notices-latest li {
+    grid-template-columns: 140px 1fr;
+  }
+  .notices-latest__image {
+    width: 140px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .notices-latest li {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding: 1rem;
+  }
+  .notices-latest__image {
+    width: 100%;
+    height: 120px;
+  }
+  .notices-latest__info {
+    grid-template-rows: auto auto auto;
+  }
+  .notices-latest__bottom-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .notices-latest small {
+    margin-bottom: 0;
+    align-self: end;
+    justify-self: start;
+  }
+  .notices-latest__button {
+    margin-left: 0;
+    margin-top: 0;
+    justify-self: end;
+  }
+}

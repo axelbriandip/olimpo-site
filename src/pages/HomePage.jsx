@@ -1,4 +1,5 @@
 import PageHeader from "../components/PageHeader";
+import NoticiasRecientes from "../components/NoticesLatest";
 
 const HomePage = () => {
   return (
@@ -7,8 +8,7 @@ const HomePage = () => {
         title="Bienvenido al Club Olimpo"
         description="Explorá nuestro sitio para conocer más sobre nosotros, nuestros equipos y las últimas noticias."
       />
-      {/* Otras secciones que podés agregar más adelante */}
-      {/* <NoticiasRecientes /> */}
+      <NoticiasRecientes />
       {/* <PlantelesDestacados /> */}
       {/* <HistoriaDelClub /> */}
       {/* <ProximosPartidos /> */}
