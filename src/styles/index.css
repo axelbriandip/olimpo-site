@@ -4,6 +4,7 @@
 @import url('./components/PageHeader.css');
 @import url('./components/NoticesLatest.css');
 @import url('./components/WelcomeCarousel.css');
+@import url('./components/CardPlayerOfMonth.css');
 
 * {
     font-family: 'Montserrat', sans-serif;

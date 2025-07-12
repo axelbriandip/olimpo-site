@@ -1,6 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import NoticiasRecientes from "../components/NoticesLatest";
 import WelcomeCarousel from "../components/WelcomeCarousel";
+import CardPlayerOfMonth from "../components/CardPlayerOfMonth";
 
 
 const HomePage = () => {
@@ -12,6 +13,7 @@ const HomePage = () => {
       />
       <WelcomeCarousel />
       <NoticiasRecientes />
+      <CardPlayerOfMonth />
       {/* <PlantelesDestacados /> */}
       {/* <HistoriaDelClub /> */}
       {/* <ProximosPartidos /> */}
