@@ -5,6 +5,7 @@
 @import url('./components/NoticesLatest.css');
 @import url('./components/WelcomeCarousel.css');
 @import url('./components/CardPlayerOfMonth.css');
+@import url('./components/SponsorsSlider.css');
 
 * {
     font-family: 'Montserrat', sans-serif;
