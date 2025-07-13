@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import NoticesPage from "./pages/NoticesPage";
 import SquadsPage from "./pages/SquadsPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import MatchesPage from "./pages/MatchesPage";
 import './styles/index.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/notices" element={<NoticesPage />} />
+            <Route path="/matches" element={<MatchesPage />} />
             <Route path="/squads" element={<SquadsPage />} />
             <Route path="/about-us" element={<AboutUsPage />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />

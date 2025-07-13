@@ -7,6 +7,7 @@
 @import url('./components/SponsorsSlider.css');
 @import url('./components/BestPlayers.css');
 @import url('./components/Testimonials.css');
+@import url('./components/UpcomingMatches.css');
 
 * {
     font-family: 'Montserrat', sans-serif;

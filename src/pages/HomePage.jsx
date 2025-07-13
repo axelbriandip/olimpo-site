@@ -17,6 +17,7 @@ const HomePage = () => {
       <NoticiasRecientes />
       <SponsorsSlider />
       <BestPlayers />
+      <SponsorsSlider />
       <Testimonials />
       {/* <CardPlayerOfMonth /> */}
       {/* <PlantelesDestacados /> */}

@@ -17,6 +17,7 @@ function Navbar() {
       <nav className={`navbar__links ${isOpen ? 'open' : ''}`}>
         <NavLink to="/" onClick={() => setIsOpen(false)}>Inicio</NavLink>
         <NavLink to="/notices" onClick={() => setIsOpen(false)}>Noticias</NavLink>
+        <NavLink to="/matches" onClick={() => setIsOpen(false)}>Partidos</NavLink>
         <NavLink to="/squads" onClick={() => setIsOpen(false)}>Planteles</NavLink>
         <NavLink to="/about-us" onClick={() => setIsOpen(false)}>Historia</NavLink>
       </nav>
