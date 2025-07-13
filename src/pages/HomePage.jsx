@@ -4,7 +4,7 @@ import WelcomeCarousel from "../components/WelcomeCarousel";
 import SponsorsSlider from "../components/SponsorsSlider";
 import BestPlayers from "../components/BestPlayers";
 import Testimonials from "../components/Testimonials";
-
+import VisionMissionValues from "../components/VisionMissionValues";
 
 const HomePage = () => {
   return (
@@ -15,6 +15,7 @@ const HomePage = () => {
       />
       <WelcomeCarousel />
       <SponsorsSlider />
+      <VisionMissionValues />
       <NoticiasRecientes />
       <BestPlayers />
       <SponsorsSlider />

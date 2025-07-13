@@ -8,6 +8,7 @@
 @import url('./components/BestPlayers.css');
 @import url('./components/Testimonials.css');
 @import url('./components/UpcomingMatches.css');
+@import url('./components/VisionMissionValues.css');
 
 * {
     font-family: 'Montserrat', sans-serif;

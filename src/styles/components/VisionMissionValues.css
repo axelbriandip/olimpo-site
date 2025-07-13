@@ -1,0 +1,109 @@
+.vmv-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.vmv-card {
+  position: relative;
+  width: 300px;
+  height: 440px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.vmv-bg {
+  height: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.mission {
+  background-image: url('../../assets//imgs/welcome-carousel/juli.jpg'); /* Cambiá por tu ruta local o import */
+}
+
+.vision {
+  background-image: url('../../assets//imgs/welcome-carousel/juli.jpg'); /* Cambiá por tu ruta local o import */
+}
+
+.values {
+  background-image: url('../../assets//imgs/welcome-carousel/juli.jpg'); /* Cambiá por tu ruta local o import */
+}
+
+.vmv-content {
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* gap: 0.8rem; */
+  height: 50%;
+  text-align: center;
+}
+
+.vmv-icon {
+  font-size: 2rem;
+  margin-top: -1.5rem;
+  background: white;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  margin-inline: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.vmv-content h3 {
+  font-size: 1.3rem;
+  color: #01197e;
+}
+
+.vmv-content p {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.vmv-title {
+  font-size: 2rem;
+  color: #01197e;
+  text-align: center;
+}
+
+.vmv-description {
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+}
+
+.vmv-card {
+  position: relative;
+  width: 300px;
+  height: 440px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.vmv-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.vmv-bg {
+  height: 50%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.4s ease;
+}
+
+.vmv-card:hover .vmv-bg {
+  transform: scale(1.05);
+}
+
