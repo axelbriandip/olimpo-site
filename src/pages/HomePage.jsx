@@ -1,8 +1,8 @@
 import PageHeader from "../components/PageHeader";
 import NoticiasRecientes from "../components/NoticesLatest";
 import WelcomeCarousel from "../components/WelcomeCarousel";
-import CardPlayerOfMonth from "../components/CardPlayerOfMonth";
 import SponsorsSlider from "../components/SponsorsSlider";
+import BestPlayers from "../components/BestPlayers";
 
 
 const HomePage = () => {
@@ -15,7 +15,8 @@ const HomePage = () => {
       <WelcomeCarousel />
       <NoticiasRecientes />
       <SponsorsSlider />
-      <CardPlayerOfMonth />
+      <BestPlayers />
+      {/* <CardPlayerOfMonth /> */}
       {/* <PlantelesDestacados /> */}
       {/* <HistoriaDelClub /> */}
       {/* <ProximosPartidos /> */}
