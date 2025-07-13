@@ -30,6 +30,7 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   text-align: left;
   transition: transform 0.3s ease;
+  position: relative;
 }
 
 .testimonial-card-modern:hover {
@@ -58,4 +59,12 @@
 .testimonial-role {
   font-size: 0.9rem;
   color: #666;
+}
+
+.icon-comment {
+  color: #01197e;
+  font-size: 3.5rem;
+  position: absolute;
+  right: -.5rem;
+  top: -1.4rem;
 }

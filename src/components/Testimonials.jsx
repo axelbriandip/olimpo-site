@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faQuoteRight } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const Testimonials = () => {
   const testimonials = [
@@ -20,11 +24,14 @@ const Testimonials = () => {
 
   return (
     <section className="testimonials-modern">
+      
       <h2 className="testimonials-title">Testimonios</h2>
       <p className="testimonials-description">Lo que dicen quienes forman parte de nuestra comunidad.</p>
       <div className="testimonials-grid">
         {testimonials.map((testimonial, index) => (
           <div className="testimonial-card-modern" key={index}>
+            <FontAwesomeIcon icon={faQuoteRight} className='icon-comment'/>
+            {/* <FontAwesomeIcon icon={faComment} className='icon-comment'/> */}
             <p className="testimonial-message">“{testimonial.message}”</p>
             <div className="testimonial-author">
               <span className="testimonial-name">{testimonial.name}</span>
