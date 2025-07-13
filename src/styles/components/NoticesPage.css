@@ -163,3 +163,21 @@
   border-radius: 4px;
   font-size: 0.75rem;
 }
+
+.notice-button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: transparent;
+  border: 1px solid #01197e;
+  color: #01197e;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.notice-button:hover {
+  background-color: #01197e;
+  color: white;
+}

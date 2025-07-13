@@ -10,11 +10,10 @@ const NoticeCard = ({ notice }) => {
         <p className="notice-date">{date}</p>
         <div className="notice-categories">
           {category.map((cat, index) => (
-            <span key={index} className="notice-category">
-              {cat}
-            </span>
+            <span key={index} className="notice-category">{cat}</span>
           ))}
         </div>
+        <button className="notice-button">Ver más</button>
       </div>
     </div>
   );
