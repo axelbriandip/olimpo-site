@@ -3,6 +3,7 @@ import NoticiasRecientes from "../components/NoticesLatest";
 import WelcomeCarousel from "../components/WelcomeCarousel";
 import SponsorsSlider from "../components/SponsorsSlider";
 import BestPlayers from "../components/BestPlayers";
+import Testimonials from "../components/Testimonials";
 
 
 const HomePage = () => {
@@ -16,6 +17,7 @@ const HomePage = () => {
       <NoticiasRecientes />
       <SponsorsSlider />
       <BestPlayers />
+      <Testimonials />
       {/* <CardPlayerOfMonth /> */}
       {/* <PlantelesDestacados /> */}
       {/* <HistoriaDelClub /> */}
