@@ -9,6 +9,7 @@
 @import url('./components/Testimonials.css');
 @import url('./components/UpcomingMatches.css');
 @import url('./components/VisionMissionValues.css');
+@import url('./components/NoticesPage.css');
 
 * {
     font-family: 'Montserrat', sans-serif;
