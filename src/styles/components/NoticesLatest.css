@@ -8,7 +8,14 @@
   font-size: 1.7rem;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #222;
+  color: #01197e;
+}
+
+.notices-latest .subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .notices-latest ul {
@@ -55,7 +62,7 @@
 .notices-latest h3 {
   margin: 0 0 0.3rem 0;
   font-size: 1.15rem;
-  color: #1a237e;
+  color: #01197e;
   align-self: start;
 }
 

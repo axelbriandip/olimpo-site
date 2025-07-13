@@ -38,6 +38,7 @@ const notices = [
 const NoticesLatest = () => (
   <section className="notices-latest">
     <h2>Noticias Recientes</h2>
+    <p className="subtitle">Sigue las novedades del Club Olimpo: partidos, eventos y mucho más aquí.</p>
     <ul>
       {notices.map((notice) => (
         <li key={notice.id}>

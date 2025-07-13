@@ -14,8 +14,8 @@ const HomePage = () => {
         description="Explorá nuestro sitio para conocer más sobre nosotros, nuestros equipos y las últimas noticias."
       />
       <WelcomeCarousel />
-      <NoticiasRecientes />
       <SponsorsSlider />
+      <NoticiasRecientes />
       <BestPlayers />
       <SponsorsSlider />
       <Testimonials />
