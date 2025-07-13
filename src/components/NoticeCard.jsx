@@ -1,14 +1,23 @@
+const NoticeCard = ({ notice }) => {
+  const { title, summary, date, category, image } = notice;
 
-export default function NoticeCard({ title, date, image, summary, category }) {
   return (
-    <div className="news-card">
-      <img src={image} alt={title} className="news-image" />
-      <div className="news-content">
-        <p className="news-date">{new Date(date).toLocaleDateString()}</p>
-        <h2 className="news-card-title">{title}</h2>
-        <p className="news-summary">{summary}</p>
-        <span className="news-category">{category}</span>
+    <div className="notice-card">
+      <img src={image} alt={title} className="notice-image" />
+      <div className="notice-content">
+        <h3 className="notice-title">{title}</h3>
+        <p className="notice-summary">{summary}</p>
+        <p className="notice-date">{date}</p>
+        <div className="notice-categories">
+          {category.map((cat, index) => (
+            <span key={index} className="notice-category">
+              {cat}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default NoticeCard;

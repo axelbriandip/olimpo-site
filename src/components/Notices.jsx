@@ -1,71 +1,90 @@
-import { useState, useEffect } from "react";
-import NewsCard from "./NoticeCard";
-import newsData from "../data/newsData.js"; // Asegúrate de que este archivo exista y tenga la estructura correcta
+import { useState } from 'react';
+import NoticeCard from './NoticeCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
-const categories = ["Todas", "Primera", "Juveniles", "Infantiles", "Institucional"];
 
-const ITEMS_PER_PAGE = 9;
-
-export default function Notices() {
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
+const Notices = ({ newsData }) => {
+  const allCategories = ['Todas', ...new Set(newsData.flatMap(news => news.category))];
+  const [selectedCategory, setSelectedCategory] = useState('Todas');
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    setCurrentPage(1); // Volver a página 1 al cambiar de categoría
-  }, [selectedCategory]);
+  const newsPerPage = 8;
+  const filteredNews = selectedCategory === 'Todas'
+    ? newsData
+    : newsData.filter(news => news.category.includes(selectedCategory));
 
-  const filteredNews =
-    selectedCategory === "Todas"
-      ? newsData
-      : newsData.filter((n) => n.category === selectedCategory);
+  const totalPages = Math.ceil(filteredNews.length / newsPerPage);
+  const indexOfLast = currentPage * newsPerPage;
+  const indexOfFirst = indexOfLast - newsPerPage;
+  const currentNews = filteredNews.slice(indexOfFirst, indexOfLast);
 
-  const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
-
-  const paginatedNews = filteredNews.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset page on category change
+  };
 
   return (
-    <div className="news-container">
-      <div className="category-filters">
-        {categories.map((cat) => (
+    <div className="notices-container">
+      <div className="filter-buttons">
+        {allCategories.map(category => (
           <button
-            key={cat}
-            className={`category-button ${
-              selectedCategory === cat ? "active" : ""
-            }`}
-            onClick={() => setSelectedCategory(cat)}
+            key={category}
+            className={selectedCategory === category ? 'active' : ''}
+            onClick={() => handleCategoryChange(category)}
           >
-            {cat}
+            {category}
           </button>
         ))}
       </div>
 
-      <div className="news-grid">
-        {paginatedNews.map((news) => (
-          <NewsCard key={news.id} {...news} />
+      <div className="notices-grid">
+        {currentNews.map(notice => (
+          <NoticeCard key={notice.id} notice={notice} />
         ))}
-        {paginatedNews.length === 0 && (
-          <p className="no-news">No hay noticias en esta categoría.</p>
-        )}
       </div>
 
-      {totalPages > 1 && (
-        <div className="pagination">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index + 1}
-              className={`page-button ${
-                currentPage === index + 1 ? "active" : ""
-              }`}
-              onClick={() => setCurrentPage(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage(1)}
+          disabled={currentPage === 1}
+        >
+          <FontAwesomeIcon icon={faAnglesLeft} />
+        </button>
+
+        <button
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index + 1}
+            className={currentPage === index + 1 ? 'active' : ''}
+            onClick={() => setCurrentPage(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          <FontAwesomeIcon icon={faArrowRight} />
+        </button>
+
+        <button
+          onClick={() => setCurrentPage(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          <FontAwesomeIcon icon={faAnglesRight} />
+        </button>
+      </div>
     </div>
   );
-}
+};
+
+export default Notices;
