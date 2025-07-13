@@ -14,16 +14,12 @@ const HomePage = () => {
         description="Explorá nuestro sitio para conocer más sobre nosotros, nuestros equipos y las últimas noticias."
       />
       <WelcomeCarousel />
-      <SponsorsSlider />
       <VisionMissionValues />
+      <SponsorsSlider />
       <NoticiasRecientes />
       <BestPlayers />
-      <SponsorsSlider />
       <Testimonials />
-      {/* <CardPlayerOfMonth /> */}
-      {/* <PlantelesDestacados /> */}
-      {/* <HistoriaDelClub /> */}
-      {/* <ProximosPartidos /> */}
+      <SponsorsSlider />
     </>
   );
 };

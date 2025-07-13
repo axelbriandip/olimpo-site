@@ -1,4 +1,7 @@
 import PageHeader from "../components/PageHeader";
+import HistoryTimeline from "../components/HistoryTimeline";
+import SponsorsSlider from '../components/SponsorsSlider'
+import HistoryEvents from '../data/HistoryEvents.js'
 
 const AboutUsPage = () => (
   <>
@@ -6,7 +9,8 @@ const AboutUsPage = () => (
       title="Sobre nosotros"
       description="Nuestra historia, valores y el camino recorrido por el Club Olimpo."
     />
-    {/* Aquí podés agregar la historia y misión del club */}
+    <HistoryTimeline events={HistoryEvents} />
+    <SponsorsSlider />
   </>
 );
 
