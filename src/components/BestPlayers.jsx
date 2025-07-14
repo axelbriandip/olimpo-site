@@ -3,21 +3,21 @@ import uno from '../assets/imgs/welcome-carousel/lisi.jpg';
 const best_players = [
   {
     name: "Martina López",
-    role: "Cat. Sub 11 (2014/15)",
+    role: "Cat. Sub 11",
     comment: "Su liderazgo y desempeño en cada partido la destacaron como la mejor jugadora Sub11 del mes.",
     medal: "🥇",
     image: uno,
   },
   {
     name: "Carlos Gómez",
-    role: "Cat. Sub 9 (2016/17)",
+    role: "Cat. Sub 9",
     comment: "Clave en la formación y el rendimiento del equipo Sub9, su dedicación es ejemplar.",
     medal: "🥈",
     image: uno,
 },
 {
     name: "Lucía Fernández",
-    role: "Cat. Sub 17 (2008/09)",
+    role: "Cat. Sub 17",
     comment: "Con una actuación sobresaliente, Lucía fue fundamental en los logros de nuestro equipo Sub17 este mes.",
     medal: "🥉",
     image: uno,

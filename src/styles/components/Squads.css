@@ -68,12 +68,13 @@
   text-align: center;
   background-color: white;
   box-shadow: 0 1px 3px rgba(1, 25, 126, 0.15);
-  transition: box-shadow 0.2s ease;
+  transition: all 0.2s ease;
   cursor: default;
 }
 
 .player-card:hover {
   box-shadow: 0 4px 8px rgba(1, 25, 126, 0.2);
+  transform: scale(1.02);
 }
 
 .player-card span {
