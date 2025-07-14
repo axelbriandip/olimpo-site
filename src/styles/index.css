@@ -12,6 +12,7 @@
 @import url('./components/NoticesPage.css');
 @import url('./components/HistoryTimeline.css');
 @import url('./components/Squads.css');
+@import url('./components/newsDetail.css');
 
 * {
     font-family: 'Montserrat', sans-serif;

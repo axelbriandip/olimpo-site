@@ -6,6 +6,7 @@ import NoticesPage from "./pages/NoticesPage";
 import SquadsPage from "./pages/SquadsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import MatchesPage from "./pages/MatchesPage";
+import NewsDetailPage from "./pages/NewsDetailPage";
 import './styles/index.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/notices" element={<NoticesPage />} />
+            <Route path="/notices/:id" element={<NewsDetailPage />} />
             <Route path="/matches" element={<MatchesPage />} />
             <Route path="/squads" element={<SquadsPage />} />
             <Route path="/about-us" element={<AboutUsPage />} />

@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 const NoticeCard = ({ notice }) => {
-  const { title, summary, date, category, image } = notice;
+  const { title, summary, date, category, image, id } = notice;
 
   return (
     <div className="notice-card">
@@ -13,7 +15,10 @@ const NoticeCard = ({ notice }) => {
             <span key={index} className="notice-category">{cat}</span>
           ))}
         </div>
-        <button className="notice-button">Ver más</button>
+        <Link to={`/notices/${id}`}>
+          {/* <button className="text-sm bg-blue-900 text-white px-3 py-1 rounded mt-2">Ver más</button> */}
+          <button className="notice-button">Ver más</button>
+        </Link>
       </div>
     </div>
   );
