@@ -1,4 +1,6 @@
 import PageHeader from "../components/PageHeader";
+import Squads from "../components/Squads";
+import SponsorsSlider from "../components/SponsorsSlider";
 
 const SquadsPage = () => (
   <>
@@ -6,7 +8,8 @@ const SquadsPage = () => (
       title="Equipos"
       description="Conocé a los planteles y jugadores que representan al club."
     />
-    {/* Aquí podés agregar la información de los equipos */}
+    <Squads />
+    <SponsorsSlider />
   </>
 );
 

@@ -11,6 +11,7 @@
 @import url('./components/VisionMissionValues.css');
 @import url('./components/NoticesPage.css');
 @import url('./components/HistoryTimeline.css');
+@import url('./components/Squads.css');
 
 * {
     font-family: 'Montserrat', sans-serif;

@@ -1,0 +1,91 @@
+/* Contenedor general */
+.squads-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* Filtro de categorías */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.category-btn {
+  padding: 8px 16px;
+  border: 1.5px solid #01197e;
+  background-color: white;
+  color: #01197e;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-btn:hover {
+  background-color: #01197e;
+  color: white;
+}
+
+.category-btn.active {
+  background-color: #01197e;
+  color: white;
+  font-weight: 600;
+}
+
+/* Secciones de plantel */
+.squad-section {
+  margin-bottom: 40px;
+}
+
+.squad-section h3 {
+  font-size: 18px;
+  color: #01197e;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #01197e;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Contenedor de cards */
+.cards-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Card individual */
+.player-card {
+  width: 120px;
+  border: 1.5px solid #01197e;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(1, 25, 126, 0.15);
+  transition: box-shadow 0.2s ease;
+  cursor: default;
+}
+
+.player-card:hover {
+  box-shadow: 0 4px 10px rgba(1, 25, 126, 0.4);
+}
+
+.player-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.player-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #01197e;
+  font-weight: 600;
+}
