@@ -1,51 +1,111 @@
-/* src/components/Footer.css */
+.footer img,
+.footer__socials a,
+.footer__bottom a {
+  transition: all 0.3s ease;
+}
+
 .footer {
-  padding: 1rem 2rem;
-  font-family: 'Montserrat', sans-serif;
-  background-color: white;
-  margin-top: 2rem;
+  background-color: #01197e;
+  color: #fff;
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  /* overflow: hidden; */
+  margin-top: 5rem;
+  position: relative;
 }
 
-.footer hr {
-  border: none;
-  border-top: 1px solid #444;
-  margin-bottom: 1rem;
+.footer img {
+  width: 8rem;
+  margin-top: -8.9rem;
 }
 
-.footer__content {
+.footer__official {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  font-weight: 600;
+  color: white;
+}
+
+.footer__socials {
+  margin: 1rem 0;
+}
+
+.footer__socials a {
+  color: #fff;
+  font-size: 2rem;
+  margin: 0 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer__bottom {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
-}
-
-.footer__left {
   font-size: 0.9rem;
+  border-top: 1px solid #ffffff33;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
 }
 
-.footer__right {
-  display: flex;
-  gap: 1rem;
+.footer__bottom p {
+  margin: 0.3rem 1rem;
 }
 
-.footer__right a {
-  color: #000;
-  font-size: 1.2rem;
-  transition: color 0.3s;
+.footer__bottom a {
+  color: white;
+  text-decoration: none;
 }
 
-.footer__right a:hover {
-  color: #01197e;
-}
-
+/* Mobile responsive */
 @media (max-width: 600px) {
-  .footer__content {
+  .footer__bottom {
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .footer__left {
     text-align: center;
   }
+
+  .footer__bottom p {
+    margin: 0.5rem 0;
+  }
+}
+
+/* hover */
+.footer__bottom a:hover {
+  transform: translateY(-2px);
+  color: #bfcaff;
+  text-decoration: underline;
+}
+
+.footer__socials a:hover {
+  opacity: 0.8;
+  text-shadow: 0 0 5px white;
+}
+
+@keyframes doublePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.1);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.08);
+  }
+
+  75% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.footer img:hover {
+  animation: doublePulse 0.8s ease-in-out;
 }

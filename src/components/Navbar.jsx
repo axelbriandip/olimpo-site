@@ -1,18 +1,17 @@
-// src/components/Navbar.jsx
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/components/Navbar.css'; // Asegúrate de tener un archivo CSS para estilos
-import logo from '../assets/imgs/shields/corg-full.png'; // Usá tu logo o escudo aquí
+import '../styles/components/Navbar.css';
+import logo from '../assets/imgs/shields/corg-full.png';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="navbar">
-      <div className="navbar__logo">
+      <NavLink to="/" className="navbar__logo" onClick={() => setIsOpen(false)}>
         <img src={logo} alt="Club Olimpo" />
         <span>Club Olimpo</span>
-      </div>
+      </NavLink>
 
       <nav className={`navbar__links ${isOpen ? 'open' : ''}`}>
         <NavLink to="/" onClick={() => setIsOpen(false)}>Inicio</NavLink>

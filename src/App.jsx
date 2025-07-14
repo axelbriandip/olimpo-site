@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -7,11 +8,13 @@ import SquadsPage from "./pages/SquadsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import MatchesPage from "./pages/MatchesPage";
 import NewsDetailPage from "./pages/NewsDetailPage";
-import './styles/index.css'
+import ScrollToTop from "./components/ScrollToTop";
+import './styles/index.css';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> {/* Se monta una vez y escucha los cambios de ruta */}
       <div className="layout">
         <Navbar />
         <main>
@@ -31,4 +34,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

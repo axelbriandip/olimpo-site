@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 1.5rem;
+  padding: 1rem 1.5rem;
   background-color: #01197e;
   color: white;
   position: sticky;
@@ -63,8 +63,10 @@
     flex-direction: column;
     width: 100%;
     display: none;
-    padding: 1rem 2rem; /* Agrega margen interno para que no quede pegado al borde */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* opcional para que no quede tan plano */
+    padding: 1rem 2rem;
+    /* Agrega margen interno para que no quede pegado al borde */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* opcional para que no quede tan plano */
   }
 
   .navbar__links.open {
@@ -78,4 +80,42 @@
 
 .navbar__links {
   transition: all 0.3s ease-in-out;
+}
+
+.navbar__logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  /* Para evitar subrayado */
+  color: inherit;
+  /* Que mantenga el color */
+}
+
+@keyframes singlePulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.navbar__logo img {
+  width: 40px;
+  /* ajusta si querés */
+  height: auto;
+  cursor: pointer;
+  animation: singlePulse 2s ease-in-out infinite;
+  transform-origin: center;
+  transition: transform 0.3s ease;
 }
