@@ -18,19 +18,18 @@ const NewsDetail = () => {
 
   return (
     <div className="news-detail-container">
-      <button
-        className="btn-back"
-        onClick={() => navigate(-1)}
-        aria-label="Volver a la página anterior">← Volver
-      </button>
       <img src={newsItem.image} alt={newsItem.title} className="news-detail-image" />
       <h1 className="news-detail-title">{newsItem.title}</h1>
       <p className="news-detail-content">{newsItem.content}</p>
 
       <div className="footer-nd">
         <p className="news-detail-date">{newsItem.date}</p>
+        <button
+          className="btn-back"
+          onClick={() => navigate(-1)}
+          aria-label="Volver a la página anterior">← Volver
+        </button>
       </div>
-
       {relatedNews.length > 0 && (
         <div className="related-news-section">
           <h2 className="related-news-title">También puede interesarte</h2>
