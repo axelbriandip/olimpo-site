@@ -14,6 +14,7 @@
 @import url('./components/Squads.css');
 @import url('./components/newsDetail.css');
 @import url('./components/Footer.css');
+@import url('./components/HeroGrid.css');
 
 * {
   font-family: 'Montserrat', sans-serif;

@@ -1,10 +1,11 @@
 import PageHeader from "../components/PageHeader";
 import NoticiasRecientes from "../components/NoticesLatest";
-import WelcomeCarousel from "../components/WelcomeCarousel";
 import SponsorsSlider from "../components/SponsorsSlider";
 import BestPlayers from "../components/BestPlayers";
 import Testimonials from "../components/Testimonials";
 import VisionMissionValues from "../components/VisionMissionValues";
+import Hero from "../components/HeroSlider.";
+
 
 const HomePage = () => {
   return (
@@ -13,7 +14,8 @@ const HomePage = () => {
         title="Bienvenido al Club Olimpo"
         description="Explorá nuestro sitio para conocer más sobre nosotros, nuestros equipos y las últimas noticias."
       />
-      <WelcomeCarousel />
+      {/* <WelcomeCarousel /> */}
+      <Hero />
       <VisionMissionValues />
       <SponsorsSlider />
       <NoticiasRecientes />

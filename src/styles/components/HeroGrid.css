@@ -1,0 +1,321 @@
+/* ----- INFO BOX CHICO ----- */
+
+.info-box {
+    max-width: 980px;
+    margin: 2rem auto 0;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box-inner {
+    display: grid;
+    grid-template-columns: 25% 40% 35%;
+    /* Imagen - Texto - Botón */
+    align-items: center;
+    height: 130px;
+    overflow: hidden;
+    position: relative;
+    gap: 2rem;
+}
+
+.info-img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.info-box-inner:hover .info-img {
+    transform: scale(1.05);
+}
+
+.info-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+.info-content {
+    display: contents;
+    /* Para que los hijos formen parte del grid */
+}
+
+.info-content .data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-content h3 {
+    margin: 0 0 0.5rem 0;
+    color: #01197e;
+    font-weight: bolder;
+    text-transform: uppercase
+}
+
+.info-content p {
+    margin: 0;
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+/* Botón centrado vertical y horizontalmente en su columna */
+.info-content button {
+    justify-self: center;
+    /* Centra horizontal */
+    align-self: center;
+    /* Centra vertical */
+    padding: 8px 20px;
+    background-color: #01197e;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.info-content button:hover {
+    background-color: #0129c6;
+}
+
+/* Animación de deslizamiento contínuo para info-content */
+/* La elimino para que no haya movimiento en este diseño */
+/* .info-content.slide-left {
+    animation: slideLeftLoop 5s linear infinite;
+    animation-play-state: running;
+}
+
+.info-content.slide-right {
+    animation: slideRightLoop 5s linear infinite;
+    animation-play-state: running;
+}
+
+.info-box-inner:hover .info-content {
+    animation-play-state: paused;
+} */
+
+/* ----- HERO GRANDE ----- */
+
+.hero {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.hero .hero-content {
+    display: flex;
+    justify-content: space-between;
+    place-items: initial;
+}
+
+.hero .hero-content h4 {
+    color: black;
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+.hero .hero-content h1 {
+    color: #01197e;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.hero .hero-content p {
+    color: #555;
+    font-size: .9rem;
+    height: 100%;
+}
+
+.hero-box {
+    display: flex;
+    max-width: 980px;
+    width: 100%;
+    height: 260px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: white;
+    position: relative;
+}
+
+.hero-content,
+.hero-image {
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+/* Zoom imagen hero al hover */
+
+.hero-box:hover .hero-image img {
+    transform: scale(1.05);
+}
+
+.hero-content img {
+    transition: transform 0.3s ease;
+}
+
+/* Animación deslizamiento contínuo para hero */
+
+.hero-content.slide-left {
+    animation: slideLeftLoop 6s linear infinite;
+    animation-play-state: running;
+}
+
+.hero-content.slide-right {
+    animation: slideRightLoop 6s linear infinite;
+    animation-play-state: running;
+}
+
+.hero-image.slide-left {
+    animation: slideRightLoop 6s linear infinite;
+    /* imagen va a derecha */
+    animation-play-state: running;
+}
+
+.hero-image.slide-right {
+    animation: slideLeftLoop 6s linear infinite;
+    /* imagen va a izquierda */
+    animation-play-state: running;
+}
+
+/* Pausar animaciones al hover del contenedor */
+
+.hero-box:hover .hero-content,
+.hero-box:hover .hero-image {
+    animation-play-state: paused;
+}
+
+.hero-content {
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #01197e;
+}
+
+.hero-content h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-content h1 {
+    margin: 0.5rem 0 1rem 0;
+    font-size: 2rem;
+}
+
+.hero-content p {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.3;
+    margin-bottom: 1.2rem;
+}
+
+.hero-content button {
+    width: 14rem;
+    padding: 10px 28px;
+    background-color: #01197e;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: .7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero-content button:hover {
+    background-color: #0129c6;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0 16px 16px 0;
+    transition: transform 0.3s ease;
+}
+
+/* ----- RESPONSIVE ----- */
+
+@media (max-width: 768px) {
+    .hero-box {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+        padding: 1rem 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .info-box-inner {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .info-img {
+        width: 100%;
+        height: 150px;
+        border-radius: 12px 12px 0 0 !important;
+        order: 0 !important;
+        overflow: hidden;
+    }
+
+    .info-img img {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .info-content button {
+        width: 100%;
+        justify-self: stretch;
+    }
+}
+
+/* ----- ANIMACIONES ----- */
+
+@keyframes slideLeftLoop {
+    0% {
+        transform: translateX(100%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRightLoop {
+    0% {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100%);
+        opacity: 1;
+    }
+}
