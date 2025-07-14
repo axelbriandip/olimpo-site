@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import squadsData from "../data/SquadsData.js";
+import foot_right from '../assets/imgs/icons/foot-right.png';
+import foot_left from '../assets/imgs/icons/foot-left.png';
+import corg from '../assets/imgs/shields/corg-siglas-blanco.png'
 
 // Secciones de cada plantel
 const sections = [
@@ -59,8 +62,20 @@ export default function Squads() {
               <div className="cards-container">
                 {players.map((player) => (
                   <div key={player.id} className="player-card">
-                    <img src={player.photo} alt={player.name} />
-                    <p>{player.name}</p>
+                    <div className="container-photo">
+                      <img src={player.photo} alt={player.name} />
+                      <img className="corg" src={corg} alt="Escudo Olimpo" />
+                    </div>
+                    <span className="position">{player.position}</span>
+                    <span className="lastname">{player.lastname}</span>
+                    <span className="name">{player.name}</span>
+                    <div className="data">
+                      <span className="category">{player.category}</span>
+                      <div className="age-foot">
+                        <img className="foot" src={player.foot === "Right" ? foot_right : foot_left} alt={player.foot}/>
+                        <div className="age">{player.age} años</div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
