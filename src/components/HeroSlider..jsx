@@ -1,37 +1,66 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import lisi from "../assets/imgs/welcome-carousel/lisi.jpg";
 import juli from "../assets/imgs/welcome-carousel/juli.jpg";
 
 const slides = [
   {
-    subtitle: "Orgullo Auriazul",
-    title: "Formación y Comunidad",
-    text: "Enseñamos con compromiso, respeto y trabajo en equipo.",
-    cta: "Ver misión",
+    subtitle: "Novedades del Club",
+    title: "Actualidad Auriazul",
+    text: "Enterate de las últimas noticias, logros y novedades del club.",
+    cta: "Ver Noticias",
     img: juli,
   },
   {
-    subtitle: "Pasión y Tradición",
+    subtitle: "Pasado que inspira",
     title: "Nuestra Historia",
-    text: "Más de 50 años formando jugadores y valores.",
-    cta: "Conocer historia",
+    text: "Recorré los momentos más importantes que marcaron el camino de Olimpo.",
+    cta: "Ver Historia",
+    img: lisi,
+  },
+  {
+    subtitle: "Calendario Deportivo",
+    title: "Agenda de Partidos",
+    text: "Revisá el calendario de encuentros, horarios y resultados actualizados.",
+    cta: "Ver Partidos",
+    img: juli,
+  },
+  {
+    subtitle: "Categorías del Club",
+    title: "Nuestros Planteles",
+    text: "Conocé a los jugadores y cuerpos técnicos de cada categoría.",
+    cta: "Ver Planteles",
     img: lisi,
   },
 ];
 
 const infoBoxes = [
   {
-    title: "Torneo Local",
-    text: "Participamos en la Liga Independiente con todas las categorías. ",
-    cta: "Ver Fixture",
-    img: lisi,
+    title: "Actualidad Auriazul",
+    text: "Enterate de las últimas noticias, logros y novedades del club.",
+    cta: "Ver Noticias",
+    img: juli,
     imgLeft: true,
   },
   {
-    title: "Equipo Juvenil",
-    text: "Potenciamos jóvenes talentos con entrenadores especializados.",
-    cta: "Ver Plantel",
+    title: "Nuestra Historia",
+    text: "Recorré los momentos más importantes que marcaron el camino de Olimpo.",
+    cta: "Ver Historia",
+    img: lisi,
+    imgLeft: false,
+  },
+  {
+    title: "Agenda de Partidos",
+    text: "Revisá el calendario de encuentros, horarios y resultados actualizados.",
+    cta: "Ver Partidos",
     img: juli,
+    imgLeft: true,
+  },
+  {
+    title: "Nuestros Planteles",
+    text: "Conocé a los jugadores y cuerpos técnicos de cada categoría.",
+    cta: "Ver Planteles",
+    img: lisi,
     imgLeft: false,
   },
 ];
@@ -39,6 +68,7 @@ const infoBoxes = [
 const HeroSlider = () => {
   const [heroIndex, setHeroIndex] = useState(0);
   const [infoIndex, setInfoIndex] = useState(infoBoxes.length - 1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const heroInterval = setInterval(() => {
@@ -55,6 +85,21 @@ const HeroSlider = () => {
     };
   }, []);
 
+  const getRouteFromCta = (ctaText) => {
+    switch (ctaText) {
+      case "Ver Noticias":
+        return "/notices";
+      case "Ver Historia":
+        return "/about-us";
+      case "Ver Partidos":
+        return "/matches";
+      case "Ver Planteles":
+        return "/squads";
+      default:
+        return "/";
+    }
+  };
+
   const { subtitle, title, text, cta, img } = slides[heroIndex];
   const currentInfo = infoBoxes[infoIndex];
 
@@ -70,7 +115,9 @@ const HeroSlider = () => {
               <h3>{currentInfo.title}</h3>
               <p>{currentInfo.text}</p>
             </div>
-            <button>{currentInfo.cta}</button>
+            <button onClick={() => navigate(getRouteFromCta(currentInfo.cta))}>
+              {currentInfo.cta}
+            </button>
           </div>
         </div>
       </section>
@@ -83,7 +130,9 @@ const HeroSlider = () => {
               <h1>{title}</h1>
             </div>
             <p>{text}</p>
-            <button>{cta}</button>
+            <button onClick={() => navigate(getRouteFromCta(cta))}>
+              {cta}
+            </button>
           </div>
           <div className="hero-image">
             <img src={img} alt="Slide visual" />

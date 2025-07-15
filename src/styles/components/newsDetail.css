@@ -1,7 +1,7 @@
 .news-detail-container {
   max-width: 768px;
   /* 3xl en Tailwind */
-  margin: 0 auto;
+  margin: 1.5rem auto;
   padding: 24px;
   background: #fff;
   box-shadow: 0 8px 20px rgba(1, 25, 126, 0.15);
