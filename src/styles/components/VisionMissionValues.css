@@ -1,109 +1,196 @@
-.vmv-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem;
-}
+/* src/styles/components/VisionMissionValues.css */
 
-.vmv-card {
-  position: relative;
-  width: 300px;
-  height: 440px;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-
-.vmv-bg {
-  height: 50%;
-  background-size: cover;
-  background-position: center;
-}
-
-.mission {
-  background-image: url('../../assets//imgs/welcome-carousel/juli.jpg'); /* Cambiá por tu ruta local o import */
-}
-
-.vision {
-  background-image: url('../../assets//imgs/welcome-carousel/juli.jpg'); /* Cambiá por tu ruta local o import */
-}
-
-.values {
-  background-image: url('../../assets//imgs/welcome-carousel/juli.jpg'); /* Cambiá por tu ruta local o import */
-}
-
-.vmv-content {
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  /* gap: 0.8rem; */
-  height: 50%;
+.vmv-section-wrapper {
+  padding: 60px 20px;
+  /* Ajusta el padding superior e inferior */
+  /* background-color: #f8f8f8; */
+  /* Un color de fondo suave para la sección */
   text-align: center;
-}
-
-.vmv-icon {
-  font-size: 2rem;
-  margin-top: -1.5rem;
-  background: white;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 50%;
-  margin-inline: auto;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-}
-
-.vmv-content h3 {
-  font-size: 1.3rem;
-  color: #01197e;
-}
-
-.vmv-content p {
-  font-size: 0.85rem;
-  color: #333;
+  /* Centra el título y descripción principal */
+  font-family: Arial, sans-serif;
 }
 
 .vmv-title {
-  font-size: 2rem;
-  color: #01197e;
-  text-align: center;
+  font-size: 2.5em;
+  color: #002D72;
+  /* Azul oscuro */
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .vmv-description {
-  font-size: 1rem;
+  font-size: 1.1em;
   color: #555;
-  text-align: center;
+  margin-bottom: 50px;
+  /* Espacio debajo de la descripción */
+  max-width: 800px;
+  /* Limita el ancho para mejor legibilidad */
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.vmv-cards-container {
+  display: flex;
+  /* Habilita Flexbox para las columnas */
+  flex-wrap: wrap;
+  /* Permite que las tarjetas se envuelvan en pantallas pequeñas */
+  gap: 30px;
+  /* Espacio entre las tarjetas */
+  justify-content: center;
+  /* Centra las tarjetas horizontalmente */
+  max-width: 1200px;
+  /* Ancho máximo para el contenedor de tarjetas */
+  margin: 0 auto;
+  /* Centra el contenedor de tarjetas */
 }
 
 .vmv-card {
-  position: relative;
-  width: 300px;
-  height: 440px;
-  border-radius: 1.5rem;
+  background-color: #fff;
+  border-radius: 15px;
+  /* Bordes más suaves */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  /* Sombra más pronunciada */
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  background: white;
+  /* Asegura que la imagen de fondo no se desborde */
+  width: calc(33.333% - 20px);
+  /* Aproximadamente 1/3 del ancho - espacio */
+  min-width: 280px;
+  /* Ancho mínimo para la tarjeta antes de apilarse */
+  display: flex;
+  /* Para organizar el contenido dentro de la tarjeta */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
 }
 
 .vmv-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  /* Pequeño efecto al pasar el ratón */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 .vmv-bg {
-  height: 50%;
+  width: 100%;
+  height: 150px;
+  /* Altura de la sección de fondo de la tarjeta */
   background-size: cover;
   background-position: center;
-  transition: transform 0.4s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* Para posicionar el icono */
+  border-radius: 15px 15px 0 0;
+  /* Bordes superiores redondeados */
 }
 
-.vmv-card:hover .vmv-bg {
-  transform: scale(1.05);
+/* Imágenes de fondo específicas para cada tarjeta */
+/* Asegúrate de que las rutas de las imágenes sean correctas y existan en tu proyecto */
+.mission-bg {
+  /* La ruta es desde el archivo CSS. Retrocede a 'src/', luego entra a 'assets/imgs/identity-cards/' */
+  background-image: url('../../assets/imgs/identity-cards/mission_bg.jpg');
 }
 
+.vision-bg {
+  background-image: url('../../assets/imgs/identity-cards/vision_bg.jpg');
+}
+
+.values-bg {
+  background-image: url('../../assets/imgs/identity-cards/values_bg.jpg');
+}
+
+.vmv-icon {
+  font-size: 3em;
+  /* Tamaño grande para el icono */
+  color: #fff;
+  /* Color del icono */
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Fondo semitransparente para el icono */
+  border-radius: 50%;
+  /* Icono redondo */
+  padding: 15px;
+  position: absolute;
+  /* Posicionamiento absoluto respecto a vmv-bg */
+  bottom: -30px;
+  /* Ajusta para que sobresalga un poco */
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.vmv-text-content {
+  padding: 40px 25px 30px;
+  /* Padding para el texto, ajusta según el icono */
+  flex-grow: 1;
+  /* Para que el contenido de texto ocupe el espacio restante */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Empuja el párrafo hacia abajo si el título es corto */
+  width: 100%;
+  /* Asegura que el contenido ocupe el ancho de la tarjeta */
+}
+
+.vmv-text-content h3 {
+  font-size: 1.5em;
+  color: #0056B3;
+  /* Azul más claro para títulos de tarjeta */
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.vmv-text-content p {
+  font-size: 0.95em;
+  color: #666;
+  line-height: 1.5;
+  margin-top: 0;
+  /* Elimina margen superior por defecto */
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 992px) {
+  .vmv-card {
+    width: calc(50% - 25px);
+    /* 2 columnas en tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .vmv-title {
+    font-size: 2em;
+  }
+
+  .vmv-description {
+    font-size: 1em;
+    margin-bottom: 30px;
+  }
+
+  .vmv-card {
+    width: 100%;
+    /* 1 columna en móviles */
+    max-width: 350px;
+    /* Limita el ancho en móviles */
+  }
+
+  .vmv-section-wrapper {
+    padding: 40px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vmv-text-content {
+    padding: 30px 20px 20px;
+  }
+
+  .vmv-text-content h3 {
+    font-size: 1.3em;
+  }
+
+  .vmv-icon {
+    font-size: 2.5em;
+    padding: 12px;
+    bottom: -25px;
+  }
+}
