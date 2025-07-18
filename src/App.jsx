@@ -13,11 +13,13 @@ import ScrollToTop from "./components/ScrollToTop";
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
+// NUEVA IMPORTACIÓN
+import AdminPlayersPage from './pages/AdminPlayersPage'; // <--- Importa la nueva página
 
 function App() {
   return (
     <Router>
-      <ScrollToTop /> {/* Se monta una vez y escucha los cambios de ruta */}
+      <ScrollToTop />
       <div className="layout">
         <Navbar />
         <main>
@@ -34,10 +36,17 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             {/* RUTAS PROTEGIDAS DEL PANEL DE ADMINISTRACIÓN */}
-            {/* Cualquier ruta dentro de PrivateRoute solo será accesible si el usuario está autenticado */}
+            {/* La ruta /admin es para el dashboard principal */}
             <Route path="/admin" element={
               <PrivateRoute>
                 <AdminDashboard />
+              </PrivateRoute>
+            } />
+
+            {/* Nueva ruta protegida para la gestión de jugadores */}
+            <Route path="/admin/players" element={
+              <PrivateRoute>
+                <AdminPlayersPage /> {/* <--- NUEVA RUTA PROTEGIDA */}
               </PrivateRoute>
             } />
 

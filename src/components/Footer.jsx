@@ -1,22 +1,41 @@
 import React from "react";
-import { FaFacebookSquare, FaInstagramSquare } from "react-icons/fa";
-import escudo from "../assets/imgs/shields/corg-full.png"; // Asegurate de tener esta imagen
+import { Link } from 'react-router-dom';
+import escudo from "../assets/imgs/shields/corg-full.png"; // Asumo que esta es la ruta correcta de tu escudo
+import { FaFacebookF, FaInstagram } from 'react-icons/fa'; // Solo Facebook e Instagram según la última imagen
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <img src={escudo} alt="Escudo Club Olimpo" />
-      <div className="footer__official">Sitio Oficial del Club Olimpo</div>
-      <div className="footer__socials">
-        <a href="https://facebook.com/clubolimpo.rg" target="_blank" rel="noopener noreferrer"><FaFacebookSquare /></a>
-        <a href="https://instagram.com/clubolimpo.rg" target="_blank" rel="noopener noreferrer"><FaInstagramSquare /></a>
+      {/* Sección superior del footer (logo y nombre del club) */}
+      <div className="footer__top-section">
+        <img src={escudo} alt="Escudo Club Olimpo" />
+        <div className="footer__official">Sitio Oficial del Club Olimpo</div>
       </div>
 
-      <div className="footer__bottom">
+      {/* Nueva sección para la parte superior del footer inferior (Enlaces, Powered by, Redes) */}
+      <div className="footer__bottom-top-row">
+        <div className="footer__bottom-links">
+          {/* Enlaces de políticas */}
+          <Link to="/politica-privacidad">Política de Privacidad</Link>
+          <Link to="/terminos-condiciones">Términos y Condiciones</Link>
+        </div>
+
+        <div className="footer__powered-by">
+          Desarrollado por <span className="footer__powered-by-text">Axel Brian Dip</span> {/* Texto "Desarrollado por Axel Brian Dip" */}
+        </div>
+
+        <div className="footer__social-icons">
+          {/* Iconos de redes sociales */}
+          <span className="footer__social-text">Redes sociales:</span> {/* Texto "Redes sociales:" */}
+          <a href="https://facebook.com/clubolimpo.rg" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
+          <a href="https://instagram.com/clubolimpo.rg" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+        </div>
+      </div>
+
+      {/* Nueva sección para la parte inferior del footer inferior (Copyright y Desarrollador) */}
+      <div className="footer__bottom-copyright">
+        {/* Orden de los párrafos invertido */}
         <p>&copy; {new Date().getFullYear()} Club Olimpo. Todos los derechos reservados.</p>
-        <p>
-          Desarrollado por Brian Dip (<a href="https://wa.me/542964569727" target="_blank" rel="noopener noreferrer">+54 2964-569727</a>)
-        </p>
       </div>
     </footer>
   );

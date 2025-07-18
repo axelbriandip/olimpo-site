@@ -16,6 +16,8 @@
 @import url('./components/Footer.css');
 @import url('./components/HeroGrid.css');
 @import url('./components/LoginPage.css');
+@import url('./components/PlayerForm.css');
+@import url('./components/AdminPlayersPage.css');
 
 * {
   font-family: 'Montserrat', sans-serif;

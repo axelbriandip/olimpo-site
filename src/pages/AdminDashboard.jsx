@@ -22,7 +22,7 @@ const AdminDashboard = () => {
             <nav style={{ margin: '20px 0' }}>
                 <ul style={{ listStyle: 'none', padding: 0, display: 'flex', gap: '15px' }}>
                     <li><a href="/admin/news-manager" style={{ textDecoration: 'none', color: '#007bff' }}>Gestionar Noticias</a></li>
-                    <li><a href="/admin/players-manager" style={{ textDecoration: 'none', color: '#007bff' }}>Gestionar Jugadores</a></li>
+                    <li><a href="/admin/players" style={{ textDecoration: 'none', color: '#007bff' }}>Gestionar Jugadores</a></li>
                     {/* Añade más enlaces a otros gestores aquí */}
                 </ul>
             </nav>
