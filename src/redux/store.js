@@ -1,11 +1,14 @@
 // src/redux/store.js
+
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice'; // Importaremos este slice más adelante
+import authReducer from './slices/authSlice';
+import testimonialReducer from './slices/testimonialSlice'; // <--- IMPORTA EL NUEVO SLICE AQUÍ
 
 export const store = configureStore({
     reducer: {
-        auth: authReducer, // Aquí montaremos nuestro reducer de autenticación
-        // Otros reducers (slices) irán aquí a medida que los crees
+        auth: authReducer,
+        testimonials: testimonialReducer, // <--- MONTA EL NUEVO REDUCER AQUÍ
+        // Si tienes otros reducers (slices), irán aquí también
     },
     // Opcional: middlewares personalizados o configuración adicional
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(myCustomMiddleware),

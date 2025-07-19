@@ -16,8 +16,7 @@ const Footer = () => {
       <div className="footer__bottom-top-row">
         <div className="footer__bottom-links">
           {/* Enlaces de políticas */}
-          <Link to="/politica-privacidad">Política de Privacidad</Link>
-          <Link to="/terminos-condiciones">Términos y Condiciones</Link>
+          <p>&copy; {new Date().getFullYear()} Club Olimpo. Todos los derechos reservados.</p>
         </div>
 
         <div className="footer__powered-by">
@@ -34,8 +33,8 @@ const Footer = () => {
 
       {/* Nueva sección para la parte inferior del footer inferior (Copyright y Desarrollador) */}
       <div className="footer__bottom-copyright">
+        <Link to="/admin">Acceso Admin</Link>
         {/* Orden de los párrafos invertido */}
-        <p>&copy; {new Date().getFullYear()} Club Olimpo. Todos los derechos reservados.</p>
       </div>
     </footer>
   );
