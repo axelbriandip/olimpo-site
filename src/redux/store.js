@@ -2,15 +2,13 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
-import testimonialReducer from './slices/testimonialSlice'; // <--- IMPORTA EL NUEVO SLICE AQUÍ
+import testimonialReducer from './slices/testimonialSlice';
+import playerReducer from './slices/playerSlice';
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        testimonials: testimonialReducer, // <--- MONTA EL NUEVO REDUCER AQUÍ
-        // Si tienes otros reducers (slices), irán aquí también
+        testimonials: testimonialReducer,
+        players: playerReducer,
     },
-    // Opcional: middlewares personalizados o configuración adicional
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(myCustomMiddleware),
-    // devTools: process.env.NODE_ENV !== 'production', // Habilitar Redux DevTools en desarrollo
 });
