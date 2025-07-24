@@ -15,8 +15,9 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminPlayersPage from './pages/AdminPlayersPage';
 import AdminNewsPage from './pages/AdminNewsPage';
-import AdminMatchesPage from './pages/AdminMatchesPage'; // <--- NUEVO
-import AdminHistoryPage from './pages/AdminHistoryPage'; // <--- NUEVO
+import AdminMatchesPage from './pages/AdminMatchesPage';
+import AdminHistoryPage from './pages/AdminHistoryPage';
+import AdminHomePage from './pages/AdminHomePage';
 
 function App() {
   return (
@@ -41,6 +42,13 @@ function App() {
             <Route path="/admin" element={
               <PrivateRoute>
                 <AdminDashboard />
+              </PrivateRoute>
+            } />
+
+            {/* Ruta protegida para la gestión de la página de inicio */}
+            <Route path="/admin/home" element={
+              <PrivateRoute>
+                <AdminHomePage />
               </PrivateRoute>
             } />
 

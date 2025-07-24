@@ -1,9 +1,9 @@
 // src/services/history.service.js
-import axiosInstance from '../utils/axiosConfig'; // Asegúrate de que la ruta sea correcta
+import axiosInstance from '../utils/axiosConfig';
+import uploadService from './upload.service'; // <--- IMPORTA EL SERVICIO DE SUBIDA GENÉRICO
 
 const historyService = {
     // --- Eventos Históricos ---
-
     /**
      * Obtiene todos los eventos históricos.
      * @returns {Promise<Array>} Un array de objetos de evento histórico.
@@ -80,7 +80,6 @@ const historyService = {
     },
 
     // --- Subsecciones Históricas ---
-
     /**
      * Obtiene todas las subsecciones históricas (o filtradas por eventId).
      * @param {string} [eventId] - Opcional: ID del evento para filtrar subsecciones.
@@ -159,28 +158,14 @@ const historyService = {
     },
 
     /**
-     * Sube una imagen para un evento o subsección histórica.
+     * Sube una imagen para un evento o subsección histórica usando el servicio de subida genérico.
      * @param {File} imageFile - El archivo de imagen a subir.
      * @param {string} type - 'event' o 'subsection' para determinar la carpeta de destino en el backend.
      * @returns {Promise<string>} La URL pública de la imagen subida.
      */
     uploadImage: async (imageFile, type) => {
-        try {
-            const formData = new FormData();
-            formData.append('historyImage', imageFile);
-
-            const uploadUrl = `/upload/history/${type}`; // Ejemplo: /api/upload/history/subsection
-
-            const response = await axiosInstance.post(uploadUrl, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            return response.data.imageUrl;
-        } catch (error) {
-            console.error(`Error al subir imagen de ${type} histórica:`, error.response?.data || error.message);
-            throw error;
-        }
+        // Delega la subida al servicio de subida genérico, especificando el tipo 'history/event' o 'history/subsection'
+        return await uploadService.uploadImage(imageFile, `history/${type}`);
     },
 };
 

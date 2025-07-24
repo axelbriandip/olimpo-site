@@ -1,5 +1,8 @@
 // src/services/news.service.js
-import axiosInstance from '../utils/axiosConfig'; // Asegúrate de que la ruta sea correcta
+import axiosInstance from '../utils/axiosConfig';
+import uploadService from './upload.service'; // <--- IMPORTA EL SERVICIO DE SUBIDA GENÉRICO
+
+const NEWS_API_URL = '/news'; // Asume tu endpoint para noticias
 
 const newsService = {
     /**
@@ -8,7 +11,7 @@ const newsService = {
      */
     getAllNews: async () => {
         try {
-            const response = await axiosInstance.get('/news');
+            const response = await axiosInstance.get(NEWS_API_URL);
             return response.data;
         } catch (error) {
             console.error('Error al obtener todas las noticias:', error);
@@ -23,7 +26,7 @@ const newsService = {
      */
     getNewsById: async (id) => {
         try {
-            const response = await axiosInstance.get(`/news/${id}`);
+            const response = await axiosInstance.get(`${NEWS_API_URL}/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener noticia con ID ${id}:`, error);
@@ -38,7 +41,7 @@ const newsService = {
      */
     createNews: async (newsData) => {
         try {
-            const response = await axiosInstance.post('/news', newsData);
+            const response = await axiosInstance.post(NEWS_API_URL, newsData);
             return response.data;
         } catch (error) {
             console.error('Error al crear noticia:', error.response?.data || error.message);
@@ -54,7 +57,7 @@ const newsService = {
      */
     updateNews: async (id, newsData) => {
         try {
-            const response = await axiosInstance.put(`/news/${id}`, newsData);
+            const response = await axiosInstance.put(`${NEWS_API_URL}/${id}`, newsData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar noticia con ID ${id}:`, error.response?.data || error.message);
@@ -70,7 +73,7 @@ const newsService = {
     softDeleteNews: async (id) => {
         try {
             // Asumiendo que tu backend tiene una ruta PUT para soft delete, por ejemplo /news/delete/:id
-            const response = await axiosInstance.put(`/news/delete/${id}`);
+            const response = await axiosInstance.put(`${NEWS_API_URL}/delete/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al desactivar noticia con ID ${id}:`, error.response?.data || error.message);
@@ -79,28 +82,13 @@ const newsService = {
     },
 
     /**
-     * Sube una imagen destacada para una noticia.
+     * Sube una imagen destacada para una noticia usando el servicio de subida genérico.
      * @param {File} imageFile - El archivo de imagen a subir.
      * @returns {Promise<string>} La URL pública de la imagen subida.
      */
     uploadImage: async (imageFile) => {
-        try {
-            const formData = new FormData();
-            formData.append('newsImage', imageFile); // Este campo debe ser 'newsImage', coincidiendo con uploadNews.single('newsImage')
-
-            // Esta URL ahora es '/upload/news'
-            const response = await axiosInstance.post('/upload/news', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    // Posiblemente necesites un token de autorización aquí si axiosInstance no lo añade automáticamente
-                    // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                },
-            });
-            return response.data.imageUrl; // Espera 'imageUrl' de la respuesta del backend
-        } catch (error) {
-            console.error('Error al subir imagen de noticia:', error.response?.data || error.message);
-            throw error;
-        }
+        // Delega la subida al servicio de subida genérico, especificando el tipo 'news'
+        return await uploadService.uploadImage(imageFile, 'news');
     },
 };
 

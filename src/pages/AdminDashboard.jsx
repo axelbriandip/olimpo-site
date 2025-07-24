@@ -1,8 +1,8 @@
 // src/pages/AdminDashboard.jsx
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../redux/slices/authSlice'; // Importa la acción logout
-import { useNavigate, Link } from 'react-router-dom'; // Usamos Link en lugar de <a> para navegación interna
+import { logout } from '../redux/slices/authSlice';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
     const user = useSelector((state) => state.auth.user);
@@ -10,8 +10,8 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        dispatch(logout()); // Despacha la acción de logout
-        navigate('/login'); // Redirige al login después de desloguearse
+        dispatch(logout());
+        navigate('/login');
     };
 
     return (
@@ -21,6 +21,11 @@ const AdminDashboard = () => {
 
             <nav style={{ margin: '20px 0' }}>
                 <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
+                    <li>
+                        <Link to="/admin/home" style={{ textDecoration: 'none', color: '#007bff', padding: '10px 15px', border: '1px solid #007bff', borderRadius: '5px', transition: 'background-color 0.2s, color 0.2s' }}>
+                            Gestionar Inicio
+                        </Link>
+                    </li>
                     <li>
                         <Link to="/admin/news-manager" style={{ textDecoration: 'none', color: '#007bff', padding: '10px 15px', border: '1px solid #007bff', borderRadius: '5px', transition: 'background-color 0.2s, color 0.2s' }}>
                             Gestionar Noticias
@@ -41,7 +46,6 @@ const AdminDashboard = () => {
                             Gestionar Historia
                         </Link>
                     </li>
-                    {/* Puedes añadir más enlaces aquí */}
                 </ul>
             </nav>
 
