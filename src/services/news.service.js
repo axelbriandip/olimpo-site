@@ -20,16 +20,17 @@ const newsService = {
     },
 
     /**
-     * Obtiene una noticia por su ID.
-     * @param {string} id - El ID de la noticia.
+     * Obtiene una noticia por su ID o Slug.
+     * Renombrado de getNewsById para coincidir con el controlador y el uso del frontend.
+     * @param {string} identifier - El ID o slug de la noticia.
      * @returns {Promise<Object>} Un objeto de noticia.
      */
-    getNewsById: async (id) => {
+    getNewsByIdOrSlug: async (identifier) => { // <--- CAMBIO AQUÍ: Renombrado y parámetro 'identifier'
         try {
-            const response = await axiosInstance.get(`${NEWS_API_URL}/${id}`);
+            const response = await axiosInstance.get(`${NEWS_API_URL}/${identifier}`);
             return response.data;
         } catch (error) {
-            console.error(`Error al obtener noticia con ID ${id}:`, error);
+            console.error(`Error al obtener noticia con ID/Slug ${identifier}:`, error);
             throw error;
         }
     },
@@ -72,7 +73,6 @@ const newsService = {
      */
     softDeleteNews: async (id) => {
         try {
-            // Asumiendo que tu backend tiene una ruta PUT para soft delete, por ejemplo /news/delete/:id
             const response = await axiosInstance.put(`${NEWS_API_URL}/delete/${id}`);
             return response.data;
         } catch (error) {
