@@ -1,7 +1,7 @@
 // src/components/admin/IdentityForm.jsx
 import React, { useState, useEffect } from 'react';
-import identityService from '../../services/identity.service'; // Asegúrate de que este servicio exista y sea correcto
-import uploadService from '../../services/upload.service'; // Para subir imágenes
+import identityService from '../../services/identity.service';
+import uploadService from '../../services/upload.service';
 
 const IdentityForm = ({ identity, onSave }) => {
     const initialFormData = {
@@ -11,7 +11,7 @@ const IdentityForm = ({ identity, onSave }) => {
         visionImageUrl: '',
         valuesText: '',
         valuesImageUrl: '',
-        is_active: true, // Aunque el modelo tiene defaultValue, lo mantenemos en el estado
+        is_active: true,
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -61,7 +61,8 @@ const IdentityForm = ({ identity, onSave }) => {
         }));
     };
 
-    const handleFileChange = (setterFile, setterPreview, currentUrl, fileInputId) => (e) => {
+    // Función modificada: Ya no resetea el valor del input aquí
+    const handleFileChange = (setterFile, setterPreview, currentUrl) => (e) => {
         const file = e.target.files[0];
         setterFile(file);
         if (file) {
@@ -69,16 +70,18 @@ const IdentityForm = ({ identity, onSave }) => {
         } else {
             setterPreview(currentUrl || '');
         }
-        // Reset the file input value to allow re-uploading the same file if deselected
-        if (document.getElementById(fileInputId)) {
-            document.getElementById(fileInputId).value = '';
-        }
+        // ¡IMPORTANTE! La línea que reseteaba el input ha sido eliminada de aquí.
+        // El input se reseteará solo cuando se haga clic en el botón 'X'.
     };
 
-    const handleRemoveImage = (setterFile, setterPreview, fieldName) => () => {
+    const handleRemoveImage = (setterFile, setterPreview, fieldName, fileInputId) => () => {
         setterFile(null);
         setterPreview('');
         setFormData(prev => ({ ...prev, [fieldName]: '' }));
+        // Resetear el input file para que se muestre "Sin archivos seleccionados" y permita subir la misma imagen
+        if (document.getElementById(fileInputId)) {
+            document.getElementById(fileInputId).value = '';
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -90,21 +93,21 @@ const IdentityForm = ({ identity, onSave }) => {
         try {
             let finalMissionImageUrl = formData.missionImageUrl;
             if (selectedMissionFile) {
-                finalMissionImageUrl = await uploadService.uploadImage(selectedMissionFile, 'identity-mission');
+                finalMissionImageUrl = await uploadService.uploadImage(selectedMissionFile, 'identity/mission'); // Ruta corregida
             } else if (formData.missionImageUrl === '' && !selectedMissionFile && identity?.missionImageUrl) {
                 finalMissionImageUrl = null;
             }
 
             let finalVisionImageUrl = formData.visionImageUrl;
             if (selectedVisionFile) {
-                finalVisionImageUrl = await uploadService.uploadImage(selectedVisionFile, 'identity-vision');
+                finalVisionImageUrl = await uploadService.uploadImage(selectedVisionFile, 'identity/vision'); // Ruta corregida
             } else if (formData.visionImageUrl === '' && !selectedVisionFile && identity?.visionImageUrl) {
                 finalVisionImageUrl = null;
             }
 
             let finalValuesImageUrl = formData.valuesImageUrl;
             if (selectedValuesFile) {
-                finalValuesImageUrl = await uploadService.uploadImage(selectedValuesFile, 'identity-values');
+                finalValuesImageUrl = await uploadService.uploadImage(selectedValuesFile, 'identity/values'); // Ruta corregida
             } else if (formData.valuesImageUrl === '' && !selectedValuesFile && identity?.valuesImageUrl) {
                 finalValuesImageUrl = null;
             }
@@ -116,13 +119,12 @@ const IdentityForm = ({ identity, onSave }) => {
                 valuesImageUrl: finalValuesImageUrl,
             };
 
-            // La identidad es un registro único. Si existe, se actualiza; si no, se crea.
             if (identity && identity.id) {
                 await identityService.updateIdentity(identity.id, dataToSave);
             } else {
-                await identityService.createIdentity(dataToSave); // Esto se llamaría solo la primera vez
+                await identityService.createIdentity(dataToSave);
             }
-            onSave(); // Llama al callback de éxito en el componente padre (AdminHomePage)
+            onSave();
             setMessage("¡Identidad del club guardada exitosamente!");
         } catch (err) {
             console.error("Error al guardar la identidad:", err);
@@ -149,11 +151,11 @@ const IdentityForm = ({ identity, onSave }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="missionImage">Imagen de Misión:</label>
-                    <input type="file" id="missionImage" name="missionImage" accept="image/*" onChange={handleFileChange(setSelectedMissionFile, setMissionPreview, formData.missionImageUrl, 'missionImage')} />
+                    <input type="file" id="missionImage" name="missionImage" accept="image/*" onChange={handleFileChange(setSelectedMissionFile, setMissionPreview, formData.missionImageUrl)} />
                     {missionPreview && (
                         <div className="identity-form-img-preview-wrapper">
                             <img src={missionPreview} alt="Misión Preview" className="identity-form-img-preview" />
-                            <button type="button" className="remove-image-button" onClick={handleRemoveImage(setSelectedMissionFile, setMissionPreview, 'missionImageUrl')}>X</button>
+                            <button type="button" className="remove-image-button" onClick={handleRemoveImage(setSelectedMissionFile, setMissionPreview, 'missionImageUrl', 'missionImage')}>X</button>
                         </div>
                     )}
                 </div>
@@ -168,11 +170,11 @@ const IdentityForm = ({ identity, onSave }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="visionImage">Imagen de Visión:</label>
-                    <input type="file" id="visionImage" name="visionImage" accept="image/*" onChange={handleFileChange(setSelectedVisionFile, setVisionPreview, formData.visionImageUrl, 'visionImage')} />
+                    <input type="file" id="visionImage" name="visionImage" accept="image/*" onChange={handleFileChange(setSelectedVisionFile, setVisionPreview, formData.visionImageUrl)} />
                     {visionPreview && (
                         <div className="identity-form-img-preview-wrapper">
                             <img src={visionPreview} alt="Visión Preview" className="identity-form-img-preview" />
-                            <button type="button" className="remove-image-button" onClick={handleRemoveImage(setSelectedVisionFile, setVisionPreview, 'visionImageUrl')}>X</button>
+                            <button type="button" className="remove-image-button" onClick={handleRemoveImage(setSelectedVisionFile, setVisionPreview, 'visionImageUrl', 'visionImage')}>X</button>
                         </div>
                     )}
                 </div>
@@ -187,11 +189,11 @@ const IdentityForm = ({ identity, onSave }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="valuesImage">Imagen de Valores:</label>
-                    <input type="file" id="valuesImage" name="valuesImage" accept="image/*" onChange={handleFileChange(setSelectedValuesFile, setValuesPreview, formData.valuesImageUrl, 'valuesImage')} />
+                    <input type="file" id="valuesImage" name="valuesImage" accept="image/*" onChange={handleFileChange(setSelectedValuesFile, setValuesPreview, formData.valuesImageUrl)} />
                     {valuesPreview && (
                         <div className="identity-form-img-preview-wrapper">
                             <img src={valuesPreview} alt="Valores Preview" className="identity-form-img-preview" />
-                            <button type="button" className="remove-image-button" onClick={handleRemoveImage(setSelectedValuesFile, setValuesPreview, 'valuesImageUrl')}>X</button>
+                            <button type="button" className="remove-image-button" onClick={handleRemoveImage(setSelectedValuesFile, setValuesPreview, 'valuesImageUrl', 'valuesImage')}>X</button>
                         </div>
                     )}
                 </div>
