@@ -18,6 +18,8 @@
 @import url('./components/LoginPage.css');
 @import url('./components/PlayerForm.css');
 @import url('./components/AdminPlayersPage.css');
+@import url('./components/admin/newsForm.css');
+@import url('./components/admin/adminNewsPage.css');
 
 * {
   font-family: 'Montserrat', sans-serif;

@@ -1,0 +1,210 @@
+/* src/pages/AdminPage.css */
+
+.admin-page-container {
+    padding: 30px;
+    background-color: #f8f9fa;
+    /* Un fondo claro para la página de administración */
+    min-height: calc(100vh - 120px);
+    /* Ajusta según la altura de tu Navbar y Footer */
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.admin-page-container h1 {
+    font-size: 2.2em;
+    color: #002D72;
+    /* Color principal para títulos */
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+}
+
+.admin-page-container h2 {
+    font-size: 1.6em;
+    color: #333;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Mensajes de éxito y error */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Botones de acción general */
+.admin-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-right: 10px;
+    /* Espacio entre botones */
+}
+
+.admin-button:last-child {
+    margin-right: 0;
+    /* No hay margen a la derecha para el último botón */
+}
+
+.admin-button.add-button {
+    background-color: #007bff;
+    /* Azul para añadir */
+    color: white;
+    margin-bottom: 20px;
+    display: block;
+    /* Para que ocupe su propia línea */
+    width: fit-content;
+    /* Se ajusta al contenido */
+    margin-left: auto;
+    /* Centrar o alinear a la derecha */
+    margin-right: auto;
+}
+
+.admin-button.add-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.admin-button.edit-button {
+    background-color: #ffc107;
+    /* Amarillo para editar */
+    color: #333;
+}
+
+.admin-button.edit-button:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.admin-button.delete-button {
+    background-color: #dc3545;
+    /* Rojo para eliminar/desactivar */
+    color: white;
+}
+
+.admin-button.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.admin-button.activate-button {
+    background-color: #6c757d;
+    /* Gris para botones inactivos o de activación */
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Estilos de la tabla */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Elimina el espacio entre bordes de celdas */
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    /* Para que los bordes redondeados funcionen con el thead */
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.admin-table th {
+    background-color: #002D72;
+    /* Fondo oscuro para el encabezado */
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.admin-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Color de fondo para filas pares */
+}
+
+.admin-table tbody tr:hover {
+    background-color: #e9ecef;
+    /* Resaltar fila al pasar el ratón */
+}
+
+/* Estilos específicos para la columna de acciones */
+.admin-actions {
+    white-space: nowrap;
+    /* Evita que los botones se envuelvan */
+}
+
+.admin-actions .admin-button {
+    margin-right: 8px;
+    /* Espacio más pequeño entre botones de acción */
+}
+
+/* Estilos para el overlay/modal del formulario */
+.admin-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Fondo semi-transparente oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+}
+
+.admin-form-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    /* Ancho máximo del formulario en el modal */
+    width: 90%;
+    /* Ancho responsivo */
+    max-height: 90vh;
+    /* Altura máxima para evitar desbordamiento */
+    overflow-y: auto;
+    /* Permite scroll si el contenido es muy largo */
+    position: relative;
+}
+
+/* Estilos para cuando no hay noticias o está cargando */
+.admin-list-section p {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-size: 1.1em;
+}

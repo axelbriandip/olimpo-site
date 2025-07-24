@@ -13,8 +13,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
-// NUEVA IMPORTACIÓN
-import AdminPlayersPage from './pages/AdminPlayersPage'; // <--- Importa la nueva página
+import AdminPlayersPage from './pages/AdminPlayersPage';
+import AdminNewsPage from './pages/AdminNewsPage';
 
 function App() {
   return (
@@ -46,7 +46,14 @@ function App() {
             {/* Nueva ruta protegida para la gestión de jugadores */}
             <Route path="/admin/players" element={
               <PrivateRoute>
-                <AdminPlayersPage /> {/* <--- NUEVA RUTA PROTEGIDA */}
+                <AdminPlayersPage />
+              </PrivateRoute>
+            } />
+
+            {/* NUEVA RUTA PROTEGIDA para la gestión de NOTICIAS */}
+            <Route path="/admin/news-manager" element={
+              <PrivateRoute>
+                <AdminNewsPage /> {/* <--- AHORA RENDERIZA LA PÁGINA DE ADMINISTRACIÓN DE NOTICIAS */}
               </PrivateRoute>
             } />
 
