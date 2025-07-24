@@ -15,6 +15,8 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminPlayersPage from './pages/AdminPlayersPage';
 import AdminNewsPage from './pages/AdminNewsPage';
+import AdminMatchesPage from './pages/AdminMatchesPage'; // <--- NUEVO
+import AdminHistoryPage from './pages/AdminHistoryPage'; // <--- NUEVO
 
 function App() {
   return (
@@ -36,24 +38,37 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             {/* RUTAS PROTEGIDAS DEL PANEL DE ADMINISTRACIÓN */}
-            {/* La ruta /admin es para el dashboard principal */}
             <Route path="/admin" element={
               <PrivateRoute>
                 <AdminDashboard />
               </PrivateRoute>
             } />
 
-            {/* Nueva ruta protegida para la gestión de jugadores */}
+            {/* Ruta protegida para la gestión de jugadores */}
             <Route path="/admin/players" element={
               <PrivateRoute>
                 <AdminPlayersPage />
               </PrivateRoute>
             } />
 
-            {/* NUEVA RUTA PROTEGIDA para la gestión de NOTICIAS */}
+            {/* Ruta protegida para la gestión de NOTICIAS */}
             <Route path="/admin/news-manager" element={
               <PrivateRoute>
-                <AdminNewsPage /> {/* <--- AHORA RENDERIZA LA PÁGINA DE ADMINISTRACIÓN DE NOTICIAS */}
+                <AdminNewsPage />
+              </PrivateRoute>
+            } />
+
+            {/* NUEVA RUTA PROTEGIDA para la gestión de PARTIDOS */}
+            <Route path="/admin/matches" element={
+              <PrivateRoute>
+                <AdminMatchesPage />
+              </PrivateRoute>
+            } />
+
+            {/* NUEVA RUTA PROTEGIDA para la gestión de HISTORIA */}
+            <Route path="/admin/history" element={
+              <PrivateRoute>
+                <AdminHistoryPage />
               </PrivateRoute>
             } />
 
