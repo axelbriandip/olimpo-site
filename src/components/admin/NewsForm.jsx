@@ -1,7 +1,7 @@
 // src/components/admin/NewsForm.jsx
 import React, { useState, useEffect } from 'react';
-import newsService from '../../services/news.service'; // Asegúrate de que newsService tenga métodos para subir imagen, crear y actualizar.
-
+import newsService from '../../services/news.service';
+import categoryService from '../../services/category.service'; // <--- NUEVA IMPORTACIÓN
 const NewsForm = ({ news, onClose, onSave }) => {
     // Estado inicial para una nueva noticia
     const initialFormData = {
@@ -12,16 +12,17 @@ const NewsForm = ({ news, onClose, onSave }) => {
         featuredImageUrl: '',
         featuredImageAltText: '',
         videoUrl: '',
-        slug: '', // Se puede autogenerar o dejar que el usuario lo edite
-        publishedAt: '', // Formato YYYY-MM-DDTHH:mm para input type="datetime-local"
+        slug: '',
+        publishedAt: '',
         is_published: true,
         is_active: true,
         author: '',
         source: '',
-        viewsCount: 0, // No se edita directamente, solo se muestra si es necesario
+        viewsCount: 0,
         metaTitle: '',
         metaDescription: '',
         keywords: '',
+        categoryIds: [], // <--- NUEVO CAMPO: Array para IDs de categorías seleccionadas
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -29,11 +30,30 @@ const NewsForm = ({ news, onClose, onSave }) => {
     const [imagePreview, setImagePreview] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [categories, setCategories] = useState([]); // <--- NUEVO ESTADO: Para almacenar las categorías disponibles
+    const [categoriesLoading, setCategoriesLoading] = useState(true);
+    const [categoriesError, setCategoriesError] = useState(null);
+
+    // Efecto para cargar las categorías disponibles
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                setCategoriesLoading(true);
+                const data = await categoryService.getAllCategories();
+                setCategories(data);
+            } catch (err) {
+                console.error("Error al cargar categorías:", err);
+                setCategoriesError("No se pudieron cargar las categorías.");
+            } finally {
+                setCategoriesLoading(false);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     // Efecto para cargar datos de la noticia si estamos editando
     useEffect(() => {
         if (news) {
-            // Pre-carga los datos del formulario con los de la noticia existente
             setFormData({
                 title: news.title || '',
                 subtitle: news.subtitle || '',
@@ -43,7 +63,6 @@ const NewsForm = ({ news, onClose, onSave }) => {
                 featuredImageAltText: news.featuredImageAltText || '',
                 videoUrl: news.videoUrl || '',
                 slug: news.slug || '',
-                // Formato YYYY-MM-DDTHH:mm para input type="datetime-local"
                 publishedAt: news.publishedAt ? new Date(news.publishedAt).toISOString().slice(0, 16) : '',
                 is_published: news.is_published,
                 is_active: news.is_active,
@@ -53,13 +72,14 @@ const NewsForm = ({ news, onClose, onSave }) => {
                 metaTitle: news.metaTitle || '',
                 metaDescription: news.metaDescription || '',
                 keywords: news.keywords || '',
+                // <--- Carga las categorías existentes de la noticia para edición
+                categoryIds: news.categories ? news.categories.map(cat => cat.id) : [],
             });
-            setImagePreview(news.featuredImageUrl || ''); // Muestra la imagen destacada existente
+            setImagePreview(news.featuredImageUrl || '');
         } else {
-            // Resetea el formulario para una nueva noticia y establece la fecha de publicación actual
             setFormData({
                 ...initialFormData,
-                publishedAt: new Date().toISOString().slice(0, 16), // Por defecto, fecha y hora actual
+                publishedAt: new Date().toISOString().slice(0, 16),
             });
             setImagePreview('');
             setSelectedFile(null);
@@ -69,14 +89,26 @@ const NewsForm = ({ news, onClose, onSave }) => {
 
     // Maneja cambios en los campos del formulario
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
+        const { name, value, type, checked, options } = e.target;
 
-        // Opcional: Generar slug automáticamente cuando se escribe el título
-        if (name === 'title' && !news) { // Solo para nuevas noticias
+        if (name === 'categoryIds') {
+            // Manejar selección múltiple de categorías
+            const selectedOptions = Array.from(options)
+                .filter(option => option.selected)
+                .map(option => Number(option.value)); // Asegúrate de que sean números
+            setFormData((prev) => ({
+                ...prev,
+                [name]: selectedOptions,
+            }));
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: type === 'checkbox' ? checked : value,
+            }));
+        }
+
+        // Opcional: Generar slug automáticamente cuando se escribe el título (solo para nuevas noticias)
+        if (name === 'title' && !news) {
             const generatedSlug = value.toLowerCase()
                 .normalize("NFD") // Normaliza caracteres acentuados
                 .replace(/[\u0300-\u036f]/g, "") // Elimina diacríticos
@@ -95,6 +127,17 @@ const NewsForm = ({ news, onClose, onSave }) => {
             setImagePreview(URL.createObjectURL(file)); // Crea una URL temporal para la vista previa
         } else {
             setImagePreview(formData.featuredImageUrl || '');
+        }
+    };
+
+    // Maneja la eliminación de la imagen destacada
+    const handleRemoveImage = () => {
+        setSelectedFile(null);
+        setImagePreview('');
+        setFormData(prev => ({ ...prev, featuredImageUrl: '' }));
+        // Resetear el input file para que se muestre "Sin archivos seleccionados"
+        if (document.getElementById('featuredImage')) {
+            document.getElementById('featuredImage').value = '';
         }
     };
 
@@ -121,16 +164,9 @@ const NewsForm = ({ news, onClose, onSave }) => {
             const dataToSave = {
                 ...formData,
                 featuredImageUrl: finalImageUrl,
-                viewsCount: formData.viewsCount // Asegura que viewsCount se envíe si es necesario para update
+                // Asegurarse de que `publishedAt` sea un objeto Date si se está enviando
+                publishedAt: formData.publishedAt ? new Date(formData.publishedAt) : null,
             };
-
-            // Asegurarse de que `publishedAt` sea un objeto Date si se está enviando, o nulo si no se seleccionó
-            if (dataToSave.publishedAt) {
-                dataToSave.publishedAt = new Date(dataToSave.publishedAt);
-            } else {
-                dataToSave.publishedAt = null; // O ajusta según si publishedAt es allowNull: true o false en tu modelo
-            }
-
 
             if (news) {
                 // Actualizar noticia existente
@@ -174,7 +210,6 @@ const NewsForm = ({ news, onClose, onSave }) => {
                     <small>{formData.content.length} / 1000 caracteres</small>
                 </div>
 
-                {/* Campo de subida de imagen destacada */}
                 <div className="form-group">
                     <label htmlFor="featuredImage">Imagen Destacada:</label>
                     <input type="file" id="featuredImage" name="featuredImage" accept="image/*" onChange={handleFileChange} />
@@ -184,14 +219,7 @@ const NewsForm = ({ news, onClose, onSave }) => {
                             <button
                                 type="button"
                                 className="remove-image-button"
-                                onClick={() => {
-                                    setSelectedFile(null);
-                                    setImagePreview('');
-                                    setFormData(prev => ({ ...prev, featuredImageUrl: '' }));
-                                    if (document.getElementById('featuredImage')) {
-                                        document.getElementById('featuredImage').value = '';
-                                    }
-                                }}
+                                onClick={handleRemoveImage}
                             >
                                 X
                             </button>
@@ -219,6 +247,35 @@ const NewsForm = ({ news, onClose, onSave }) => {
                     <input type="datetime-local" id="publishedAt" name="publishedAt" value={formData.publishedAt} onChange={handleChange} required />
                 </div>
 
+                {/* --- CAMPO DE SELECCIÓN DE CATEGORÍAS --- */}
+                <div className="form-group">
+                    <label htmlFor="categoryIds">Categorías: <span className="required-star">*</span></label>
+                    {categoriesLoading ? (
+                        <p>Cargando categorías...</p>
+                    ) : categoriesError ? (
+                        <p className="error-message">{categoriesError}</p>
+                    ) : categories.length > 0 ? (
+                        <select
+                            id="categoryIds"
+                            name="categoryIds"
+                            multiple // Permite selección múltiple
+                            value={formData.categoryIds}
+                            onChange={handleChange}
+                            required // Hazlo requerido si al menos una categoría es obligatoria
+                            className="multi-select-height" // Clase para controlar la altura
+                        >
+                            {categories.map(cat => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                    ) : (
+                        <p>No hay categorías disponibles. Por favor, crea algunas en la sección de categorías.</p>
+                    )}
+                    <small>Mantén 'Ctrl' (Windows) o 'Cmd' (Mac) para seleccionar múltiples categorías.</small>
+                </div>
+
                 <div className="form-group form-group-checkbox">
                     <label>
                         <input type="checkbox" name="is_published" checked={formData.is_published} onChange={handleChange} />
@@ -241,14 +298,13 @@ const NewsForm = ({ news, onClose, onSave }) => {
                     <input type="text" id="source" name="source" value={formData.source} onChange={handleChange} maxLength="100" />
                 </div>
 
-                {news && ( // Mostrar viewsCount solo en modo edición
+                {news && (
                     <div className="form-group">
                         <label>Visitas:</label>
                         <p>{formData.viewsCount}</p>
                     </div>
                 )}
 
-                {/* Campos para SEO */}
                 <div className="form-group">
                     <label htmlFor="metaTitle">Meta Título (SEO):</label>
                     <input type="text" id="metaTitle" name="metaTitle" value={formData.metaTitle} onChange={handleChange} maxLength="160" placeholder="Título para motores de búsqueda (max 160 caracteres)" />

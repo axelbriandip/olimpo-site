@@ -1,17 +1,29 @@
 // src/pages/AdminNewsPage.jsx
 import React, { useState, useEffect } from 'react';
-import NewsForm from '../components/admin/NewsForm'; // Asegúrate de la ruta correcta
-import newsService from '../services/news.service'; // Para interactuar con la API de noticias
+import NewsForm from '../components/admin/NewsForm';
+import CategoryForm from '../components/admin/CategoryForm'; // <--- NUEVA IMPORTACIÓN
+import newsService from '../services/news.service';
+import categoryService from '../services/category.service'; // <--- NUEVA IMPORTACIÓN
 
 const AdminNewsPage = () => {
-    const [showForm, setShowForm] = useState(false);
-    const [selectedNews, setSelectedNews] = useState(null); // Para editar una noticia existente
+    // --- Estados para la gestión de NOTICIAS ---
+    const [showNewsForm, setShowNewsForm] = useState(false);
+    const [selectedNews, setSelectedNews] = useState(null);
     const [newsList, setNewsList] = useState([]);
     const [loadingNews, setLoadingNews] = useState(false);
     const [newsError, setNewsError] = useState(null);
-    const [message, setMessage] = useState(null); // Para mensajes de éxito/error al usuario
 
-    // Función para cargar las noticias desde el backend
+    // --- Estados para la gestión de CATEGORÍAS ---
+    const [showCategoryForm, setShowCategoryForm] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [categoryList, setCategoryList] = useState([]);
+    const [loadingCategories, setLoadingCategories] = useState(false);
+    const [categoryError, setCategoryError] = useState(null);
+
+    // --- Mensajes generales ---
+    const [message, setMessage] = useState(null);
+
+    // --- Funciones para la gestión de NOTICIAS ---
     const fetchNews = async () => {
         setLoadingNews(true);
         setNewsError(null);
@@ -27,45 +39,35 @@ const AdminNewsPage = () => {
         }
     };
 
-    // Carga las noticias al montar el componente
-    useEffect(() => {
+    const handleNewsSaveSuccess = () => {
+        setShowNewsForm(false);
+        setSelectedNews(null);
         fetchNews();
-    }, []);
-
-    // Función que se pasa a NewsForm y se llama cuando se guarda/actualiza una noticia
-    const handleSaveSuccess = () => {
-        setShowForm(false); // Cierra el formulario
-        setSelectedNews(null); // Limpia la noticia seleccionada
-        fetchNews(); // Recarga la lista de noticias para ver los cambios
-        setMessage("¡Noticia guardada exitosamente!"); // Muestra un mensaje de éxito
+        setMessage("¡Noticia guardada exitosamente!");
     };
 
-    // Función para cerrar el formulario sin guardar
-    const handleCloseForm = () => {
-        setShowForm(false);
-        setSelectedNews(null); // Limpia la noticia seleccionada al cerrar
-        setMessage(null); // Limpia cualquier mensaje
+    const handleCloseNewsForm = () => {
+        setShowNewsForm(false);
+        setSelectedNews(null);
+        setMessage(null);
     };
 
-    // Función para abrir el formulario en modo "crear nueva noticia"
     const handleCreateNews = () => {
-        setSelectedNews(null); // Asegura que no haya ninguna noticia precargada
-        setShowForm(true);
+        setSelectedNews(null);
+        setShowNewsForm(true);
     };
 
-    // Función para abrir el formulario en modo "editar noticia existente"
     const handleEditNews = (newsItem) => {
-        setSelectedNews(newsItem); // Pasa la noticia a editar
-        setShowForm(true);
+        setSelectedNews(newsItem);
+        setShowNewsForm(true);
     };
 
-    // Función para manejar el borrado suave de una noticia
     const handleSoftDeleteNews = async (id) => {
         if (window.confirm("¿Estás seguro de que quieres desactivar esta noticia?")) {
             try {
                 await newsService.softDeleteNews(id);
                 setMessage("Noticia desactivada exitosamente.");
-                fetchNews(); // Recargar la lista
+                fetchNews();
             } catch (err) {
                 console.error("Error al desactivar noticia:", err);
                 setNewsError(err.response?.data?.message || "Error al desactivar la noticia.");
@@ -73,73 +75,197 @@ const AdminNewsPage = () => {
         }
     };
 
+    // --- Funciones para la gestión de CATEGORÍAS ---
+    const fetchCategories = async () => {
+        setLoadingCategories(true);
+        setCategoryError(null);
+        setMessage(null);
+        try {
+            const data = await categoryService.getAllCategories();
+            setCategoryList(data);
+        } catch (err) {
+            console.error("Error al cargar la lista de categorías:", err);
+            setCategoryError(err.response?.data?.message || "No se pudieron cargar las categorías.");
+        } finally {
+            setLoadingCategories(false);
+        }
+    };
+
+    const handleCategorySaveSuccess = () => {
+        setShowCategoryForm(false);
+        setSelectedCategory(null);
+        fetchCategories(); // Recarga la lista de categorías
+        setMessage("¡Categoría guardada exitosamente!");
+    };
+
+    const handleCloseCategoryForm = () => {
+        setShowCategoryForm(false);
+        setSelectedCategory(null);
+        setMessage(null);
+    };
+
+    const handleCreateCategory = () => {
+        setSelectedCategory(null);
+        setShowCategoryForm(true);
+    };
+
+    const handleEditCategory = (categoryItem) => {
+        setSelectedCategory(categoryItem);
+        setShowCategoryForm(true);
+    };
+
+    const handleSoftDeleteCategory = async (id) => {
+        if (window.confirm("¿Estás seguro de que quieres desactivar esta categoría?")) {
+            try {
+                await categoryService.softDeleteCategory(id); // Asume que tienes este método en categoryService
+                setMessage("Categoría desactivada exitosamente.");
+                fetchCategories(); // Recargar la lista
+            } catch (err) {
+                console.error("Error al desactivar categoría:", err);
+                setCategoryError(err.response?.data?.message || "Error al desactivar la categoría.");
+            }
+        }
+    };
+
+    // Carga noticias y categorías al montar el componente
+    useEffect(() => {
+        fetchNews();
+        fetchCategories();
+    }, []);
 
     return (
         <div className="admin-page-container">
-            <h1>Administración de Noticias</h1>
+            <h1>Administración de Contenido</h1>
 
             {message && <p className="success-message">{message}</p>}
             {newsError && <p className="error-message">{newsError}</p>}
+            {categoryError && <p className="error-message">{categoryError}</p>}
 
-            <button onClick={handleCreateNews} className="admin-button add-button">
-                Añadir Nueva Noticia
-            </button>
+            {/* --- SECCIÓN DE GESTIÓN DE NOTICIAS --- */}
+            <div className="admin-section">
+                <h2>Gestión de Noticias</h2>
+                <button onClick={handleCreateNews} className="admin-button add-button">
+                    Añadir Nueva Noticia
+                </button>
 
-            {showForm && (
-                <div className="admin-form-overlay"> {/* Esto podría ser un modal */}
-                    <div className="admin-form-content">
-                        <NewsForm
-                            news={selectedNews} // Pasa la noticia a editar (o null para crear)
-                            onClose={handleCloseForm} // Callback para cerrar el formulario
-                            onSave={handleSaveSuccess} // Callback cuando se guarda exitosamente
-                        />
+                {showNewsForm && (
+                    <div className="admin-form-overlay">
+                        <div className="admin-form-content">
+                            <NewsForm
+                                news={selectedNews}
+                                onClose={handleCloseNewsForm}
+                                onSave={handleNewsSaveSuccess}
+                            />
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {!showForm && ( // Muestra la lista solo si el formulario no está abierto
-                <div className="admin-list-section">
-                    <h2>Listado de Noticias</h2>
-                    {loadingNews ? (
-                        <p>Cargando noticias...</p>
-                    ) : newsList.length === 0 ? (
-                        <p>No hay noticias cargadas en el sistema.</p>
-                    ) : (
-                        <table className="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Título</th>
-                                    <th>Autor</th>
-                                    <th>Publicada</th>
-                                    <th>Activa</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {newsList.map((newsItem) => (
-                                    <tr key={newsItem.id}>
-                                        <td>{newsItem.id}</td>
-                                        <td>{newsItem.title}</td>
-                                        <td>{newsItem.author || 'N/A'}</td>
-                                        <td>{newsItem.is_published ? 'Sí' : 'No'}</td>
-                                        <td>{newsItem.is_active ? 'Sí' : 'No'}</td>
-                                        <td className="admin-actions">
-                                            <button onClick={() => handleEditNews(newsItem)} className="admin-button edit-button">Editar</button>
-                                            {newsItem.is_active && (
-                                                <button onClick={() => handleSoftDeleteNews(newsItem.id)} className="admin-button delete-button">Desactivar</button>
-                                            )}
-                                            {!newsItem.is_active && (
-                                                <button onClick={() => handleSoftDeleteNews(newsItem.id)} className="admin-button activate-button" disabled>Ya Inactiva</button>
-                                            )}
-                                        </td>
+                {!showNewsForm && (
+                    <div className="admin-list-section">
+                        <h3>Listado de Noticias</h3>
+                        {loadingNews ? (
+                            <p>Cargando noticias...</p>
+                        ) : newsList.length === 0 ? (
+                            <p>No hay noticias cargadas en el sistema.</p>
+                        ) : (
+                            <table className="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Título</th>
+                                        <th>Autor</th>
+                                        <th>Publicada</th>
+                                        <th>Activa</th>
+                                        <th>Acciones</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-                </div>
-            )}
+                                </thead>
+                                <tbody>
+                                    {newsList.map((newsItem) => (
+                                        <tr key={newsItem.id}>
+                                            <td>{newsItem.id}</td>
+                                            <td>{newsItem.title}</td>
+                                            <td>{newsItem.author || 'N/A'}</td>
+                                            <td>{newsItem.is_published ? 'Sí' : 'No'}</td>
+                                            <td>{newsItem.is_active ? 'Sí' : 'No'}</td>
+                                            <td className="admin-actions">
+                                                <button onClick={() => handleEditNews(newsItem)} className="admin-button edit-button">Editar</button>
+                                                {newsItem.is_active && (
+                                                    <button onClick={() => handleSoftDeleteNews(newsItem.id)} className="admin-button delete-button">Desactivar</button>
+                                                )}
+                                                {!newsItem.is_active && (
+                                                    <button className="admin-button activate-button" disabled>Ya Inactiva</button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                )}
+            </div>
+
+            {/* --- SECCIÓN DE GESTIÓN DE CATEGORÍAS --- */}
+            <div className="admin-section">
+                <h2>Gestión de Categorías</h2>
+                <button onClick={handleCreateCategory} className="admin-button add-button">
+                    Añadir Nueva Categoría
+                </button>
+
+                {showCategoryForm && (
+                    <div className="admin-form-overlay">
+                        <div className="admin-form-content">
+                            <CategoryForm
+                                category={selectedCategory}
+                                onClose={handleCloseCategoryForm}
+                                onSave={handleCategorySaveSuccess}
+                            />
+                        </div>
+                    </div>
+                )}
+
+                {!showCategoryForm && (
+                    <div className="admin-list-section">
+                        <h3>Listado de Categorías</h3>
+                        {loadingCategories ? (
+                            <p>Cargando categorías...</p>
+                        ) : categoryList.length === 0 ? (
+                            <p>No hay categorías cargadas en el sistema.</p>
+                        ) : (
+                            <table className="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Slug</th>
+                                        <th>Activa</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categoryList.map((categoryItem) => (
+                                        <tr key={categoryItem.id}>
+                                            <td>{categoryItem.id}</td>
+                                            <td>{categoryItem.name}</td>
+                                            <td>{categoryItem.slug || 'N/A'}</td>
+                                            <td>{categoryItem.is_active ? 'Sí' : 'No'}</td>
+                                            <td className="admin-actions">
+                                                <button onClick={() => handleEditCategory(categoryItem)} className="admin-button edit-button">Editar</button>
+                                                {categoryItem.is_active && (
+                                                    <button onClick={() => handleSoftDeleteCategory(categoryItem.id)} className="admin-button delete-button">Desactivar</button>
+                                                )}
+                                                {!categoryItem.is_active && (
+                                                    <button className="admin-button activate-button" disabled>Ya Inactiva</button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

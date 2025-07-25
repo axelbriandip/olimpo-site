@@ -21,6 +21,7 @@
 @import url('./components/admin/newsForm.css');
 @import url('./components/admin/adminNewsPage.css');
 @import url('./components/admin/adminPges.css');
+@import url('./components/admin/CategoryForm.css');
 
 * {
   font-family: 'Montserrat', sans-serif;
