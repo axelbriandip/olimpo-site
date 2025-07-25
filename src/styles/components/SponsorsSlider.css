@@ -1,77 +1,142 @@
+/* src/styles/SponsorsSlider.css */
+
 .sponsors-section {
-  padding: 2rem 1rem;
+  padding: 60px 20px;
   text-align: center;
+  overflow: hidden;
+  /* Asegura que no haya scrollbars no deseados */
 }
 
 .sponsors-title {
-  font-size: 1.8rem;
-  color: #01197e;
-  margin-bottom: 0.5rem;
+  font-size: 2.5em;
+  color: #002D72;
+  margin-bottom: 15px;
 }
 
 .sponsors-description {
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 1.5rem;
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* El slider-wrapper es el viewport del slider */
 .slider-wrapper {
-  overflow: hidden;
   width: 100%;
-  /* background: #fff; */
-  padding: 1.5rem 0;
-
-  background: rgba(255, 255, 255, 0.25);
-  -webkit-backdrop-filter: blur(40px);
-  backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  overflow: hidden;
+  /* Esto es crucial para ocultar las partes del track que están fuera de vista */
+  padding: 0 20px;
+  /* Espacio a los lados para que los logos no se peguen a los bordes */
+  box-sizing: border-box;
 }
 
-.slider-wrapper:hover .slider-track {
-  animation-play-state: paused;
-}
-
+/* El slider-track contiene todos los elementos y se anima */
 .slider-track {
   display: flex;
-  width: max-content;
-  animation: scroll 30s linear infinite;
+  width: fit-content;
+  /* Permite que el ancho se ajuste al contenido */
+  white-space: nowrap;
+  /* IMPORTANTE: Evita que los elementos se envuelvan */
+  /* Aumenta la duración de la animación para hacerla más lenta y suave */
+  animation: scroll-left 60s linear infinite;
+  /* Duración ajustada */
+  padding: 20px 0;
+  /* Espacio vertical para los logos */
+  will-change: transform;
+  /* Optimización de rendimiento para animaciones */
 }
 
-@keyframes scroll {
+.slider-track:hover {
+  animation-play-state: paused;
+  /* Pausa la animación al pasar el ratón */
+}
+
+.slide {
+  flex-shrink: 0;
+  /* Evita que los slides se encojan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  /* Ancho fijo para cada logo */
+  height: 100px;
+  /* Altura fija para cada logo */
+  margin: 0 25px;
+  /* Espacio entre logos */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slide:hover {
+  transform: translateY(-5px);
+  /* Pequeño efecto al pasar el ratón */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.slide img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Animación de desplazamiento infinito */
+@keyframes scroll-left {
   0% {
     transform: translateX(0);
   }
 
   100% {
+    /* Desplaza el 50% del ancho total del track. */
+    /* Esto es perfecto cuando el contenido se duplica una sola vez. */
+    /* Si duplicamos N veces, el porcentaje sería -100% / N */
+    /* Pero con [...sponsors, ...sponsors, ...sponsors], el -50% sigue siendo el punto de reinicio visual. */
     transform: translateX(-50%);
   }
-
-  /* Asumimos que duplicamos el contenido */
 }
 
-.slide {
-  flex: 0 0 auto;
-  width: 150px;
-  height: 80px;
-  margin: 0 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+  .sponsors-title {
+    font-size: 2em;
+  }
+
+  .sponsors-description {
+    font-size: 1em;
+    margin-bottom: 30px;
+  }
+
+  .slide {
+    width: 150px;
+    /* Reducir tamaño en pantallas más pequeñas */
+    height: 80px;
+    margin: 0 15px;
+  }
+
+  .slider-track {
+    animation-duration: 50s;
+    /* Ajustar velocidad */
+  }
 }
 
-.slide:hover {
-  transform: scale(1.05);
-}
+@media (max-width: 480px) {
+  .sponsors-title {
+    font-size: 1.8em;
+  }
 
-.slide img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: grayscale(1);
-  transition: filter 0.3s ease;
-}
+  .slide {
+    width: 120px;
+    /* Aún más pequeño en móviles */
+    height: 70px;
+    margin: 0 10px;
+  }
 
-.slide:hover img {
-  filter: grayscale(0);
+  .slider-track {
+    animation-duration: 40s;
+    /* Ajustar velocidad */
+  }
 }

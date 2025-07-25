@@ -3,25 +3,42 @@ import React, { useState, useEffect } from 'react';
 import IdentityForm from '../components/admin/IdentityForm';
 import MonthlyPlayerForm from '../components/admin/MonthlyPlayerForm';
 import TestimonialForm from '../components/admin/TestimonialForm';
+import SponsorForm from '../components/admin/SponsorForm'; // <--- NUEVA IMPORTACIÓN
 
 import identityService from '../services/identity.service';
 import monthlyPlayerService from '../services/monthlyPlayer.service';
 import testimonialService from '../services/testimonial.service';
+import sponsorService from '../services/sponsor.service'; // <--- NUEVA IMPORTACIÓN
 
 const AdminHomePage = () => {
+    // --- Estados para la gestión de IDENTIDAD ---
     const [identityData, setIdentityData] = useState(null);
-    const [monthlyPlayers, setMonthlyPlayers] = useState([]);
-    const [testimonials, setTestimonials] = useState([]);
-
     const [loadingIdentity, setLoadingIdentity] = useState(false);
-    const [loadingMonthlyPlayers, setLoadingMonthlyPlayers] = useState(false);
-    const [loadingTestimonials, setLoadingTestimonials] = useState(false);
-
     const [errorIdentity, setErrorIdentity] = useState(null);
-    const [errorMonthlyPlayers, setErrorMonthlyPlayers] = useState(null);
-    const [errorTestimonials, setErrorTestimonials] = useState(null);
 
-    const [message, setMessage] = useState(null); // Mensajes generales de éxito
+    // --- Estados para la gestión de JUGADORES DEL MES ---
+    const [monthlyPlayers, setMonthlyPlayers] = useState([]);
+    const [loadingMonthlyPlayers, setLoadingMonthlyPlayers] = useState(false);
+    const [errorMonthlyPlayers, setErrorMonthlyPlayers] = useState(null);
+    const [showMonthlyPlayerForm, setShowMonthlyPlayerForm] = useState(false);
+    const [selectedMonthlyPlayer, setSelectedMonthlyPlayer] = useState(null);
+
+    // --- Estados para la gestión de TESTIMONIOS ---
+    const [testimonials, setTestimonials] = useState([]);
+    const [loadingTestimonials, setLoadingTestimonials] = useState(false);
+    const [errorTestimonials, setErrorTestimonials] = useState(null);
+    const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+    const [selectedTestimonial, setSelectedTestimonial] = useState(null);
+
+    // --- Estados para la gestión de SPONSORS --- <--- NUEVOS ESTADOS
+    const [sponsors, setSponsors] = useState([]);
+    const [loadingSponsors, setLoadingSponsors] = useState(false);
+    const [errorSponsors, setErrorSponsors] = useState(null);
+    const [showSponsorForm, setShowSponsorForm] = useState(false);
+    const [selectedSponsor, setSelectedSponsor] = useState(null);
+
+    // --- Mensajes generales ---
+    const [message, setMessage] = useState(null);
 
     // --- Funciones de Carga de Datos ---
     const fetchIdentity = async () => {
@@ -60,10 +77,25 @@ const AdminHomePage = () => {
             setTestimonials(data);
         } catch (err) {
             console.error("Error al cargar testimonios:", err);
-            setTestimonials([]); // Asegura que sea un array vacío si hay error
+            setTestimonials([]);
             setErrorTestimonials(err.response?.data?.message || "No se pudieron cargar los testimonios.");
         } finally {
             setLoadingTestimonials(false);
+        }
+    };
+
+    const fetchSponsors = async () => { // <--- NUEVA FUNCIÓN DE CARGA
+        setLoadingSponsors(true);
+        setErrorSponsors(null);
+        try {
+            const data = await sponsorService.getAllSponsors();
+            setSponsors(data);
+        } catch (err) {
+            console.error("Error al cargar sponsors:", err);
+            setSponsors([]);
+            setErrorSponsors(err.response?.data?.message || "No se pudieron cargar los sponsors.");
+        } finally {
+            setLoadingSponsors(false);
         }
     };
 
@@ -72,22 +104,30 @@ const AdminHomePage = () => {
         fetchIdentity();
         fetchMonthlyPlayers();
         fetchTestimonials();
+        fetchSponsors(); // <--- LLAMADA A LA NUEVA FUNCIÓN DE CARGA
     }, []);
 
     // --- Callbacks para guardar datos ---
     const handleIdentitySaveSuccess = () => {
         setMessage("¡Identidad del club guardada exitosamente!");
-        fetchIdentity(); // Recargar la identidad
+        fetchIdentity();
     };
 
     const handleMonthlyPlayerSaveSuccess = () => {
         setMessage("¡Jugador del mes guardado exitosamente!");
-        fetchMonthlyPlayers(); // Recargar la lista de jugadores del mes
+        fetchMonthlyPlayers();
     };
 
     const handleTestimonialSaveSuccess = () => {
         setMessage("¡Testimonio guardado exitosamente!");
-        fetchTestimonials(); // Recargar la lista de testimonios
+        fetchTestimonials();
+    };
+
+    const handleSponsorSaveSuccess = () => { // <--- NUEVO CALLBACK
+        setMessage("¡Sponsor guardado exitosamente!");
+        setShowSponsorForm(false);
+        setSelectedSponsor(null);
+        fetchSponsors();
     };
 
     // --- Funciones para borrar (soft delete) ---
@@ -117,13 +157,25 @@ const AdminHomePage = () => {
         }
     };
 
-    // --- Estados para mostrar/ocultar formularios individuales (si usas modales) ---
-    const [showMonthlyPlayerForm, setShowMonthlyPlayerForm] = useState(false);
-    const [selectedMonthlyPlayer, setSelectedMonthlyPlayer] = useState(null);
+    const handleSoftDeleteSponsor = async (id) => { // <--- NUEVA FUNCIÓN DE SOFT DELETE
+        if (window.confirm("¿Estás seguro de que quieres desactivar este sponsor?")) {
+            try {
+                await sponsorService.softDeleteSponsor(id);
+                setMessage("Sponsor desactivado exitosamente.");
+                fetchSponsors();
+            } catch (err) {
+                console.error("Error al desactivar sponsor:", err);
+                setErrorSponsors(err.response?.data?.message || "Error al desactivar el sponsor.");
+            }
+        }
+    };
 
-    const [showTestimonialForm, setShowTestimonialForm] = useState(false);
-    const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-
+    // --- Funciones para mostrar/ocultar formularios (modales) ---
+    const handleCloseMonthlyPlayerForm = () => {
+        setShowMonthlyPlayerForm(false);
+        setSelectedMonthlyPlayer(null);
+        setMessage(null);
+    };
 
     const handleCreateMonthlyPlayer = () => {
         setSelectedMonthlyPlayer(null);
@@ -135,9 +187,9 @@ const AdminHomePage = () => {
         setShowMonthlyPlayerForm(true);
     };
 
-    const handleCloseMonthlyPlayerForm = () => {
-        setShowMonthlyPlayerForm(false);
-        setSelectedMonthlyPlayer(null);
+    const handleCloseTestimonialForm = () => {
+        setShowTestimonialForm(false);
+        setSelectedTestimonial(null);
         setMessage(null);
     };
 
@@ -151,10 +203,20 @@ const AdminHomePage = () => {
         setShowTestimonialForm(true);
     };
 
-    const handleCloseTestimonialForm = () => {
-        setShowTestimonialForm(false);
-        setSelectedTestimonial(null);
+    const handleCloseSponsorForm = () => { // <--- NUEVA FUNCIÓN PARA CERRAR FORMULARIO
+        setShowSponsorForm(false);
+        setSelectedSponsor(null);
         setMessage(null);
+    };
+
+    const handleCreateSponsor = () => { // <--- NUEVA FUNCIÓN PARA CREAR
+        setSelectedSponsor(null);
+        setShowSponsorForm(true);
+    };
+
+    const handleEditSponsor = (sponsorItem) => { // <--- NUEVA FUNCIÓN PARA EDITAR
+        setSelectedSponsor(sponsorItem);
+        setShowSponsorForm(true);
     };
 
 
@@ -174,7 +236,6 @@ const AdminHomePage = () => {
                     <IdentityForm
                         identity={identityData}
                         onSave={handleIdentitySaveSuccess}
-                    // No hay onClose aquí porque es un formulario siempre visible
                     />
                 )}
             </div>
@@ -220,7 +281,6 @@ const AdminHomePage = () => {
                                     {monthlyPlayers.map((player) => (
                                         <tr key={player.id}>
                                             <td>{player.id}</td>
-                                            {/* Asegúrate de que player.player exista antes de acceder a firstName/lastName */}
                                             <td>{player.player?.firstName} {player.player?.lastName || 'N/A'}</td>
                                             <td>{player.month}/{player.year}</td>
                                             <td>{player.is_active ? 'Sí' : 'No'}</td>
@@ -283,9 +343,8 @@ const AdminHomePage = () => {
                                     {testimonials.map((testimonial) => (
                                         <tr key={testimonial.id}>
                                             <td>{testimonial.id}</td>
-                                            <td>{testimonial.authorName}</td> {/* Usar authorName del modelo */}
+                                            <td>{testimonial.authorName}</td>
                                             <td>
-                                                {/* CORRECCIÓN AQUÍ: Asegurarse de que content sea una cadena antes de substring */}
                                                 {typeof testimonial.text === 'string' && testimonial.text.length > 0
                                                     ? `${testimonial.text.substring(0, 50)}${testimonial.text.length > 50 ? '...' : ''}`
                                                     : 'N/A'}
@@ -298,6 +357,71 @@ const AdminHomePage = () => {
                                                 )}
                                                 {!testimonial.is_active && (
                                                     <button className="admin-button activate-button" disabled>Inactivo</button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                )}
+            </div>
+
+            {/* Sección de Sponsors */} {/* <--- NUEVA SECCIÓN */}
+            <div className="admin-section">
+                <h2>Gestión de Sponsors</h2>
+                {errorSponsors && <p className="error-message">{errorSponsors}</p>}
+                <button onClick={handleCreateSponsor} className="admin-button add-button">
+                    Añadir Nuevo Sponsor
+                </button>
+
+                {showSponsorForm && (
+                    <div className="admin-form-overlay">
+                        <div className="admin-form-content">
+                            <SponsorForm
+                                sponsor={selectedSponsor}
+                                onClose={handleCloseSponsorForm}
+                                onSave={handleSponsorSaveSuccess}
+                            />
+                        </div>
+                    </div>
+                )}
+
+                {!showSponsorForm && (
+                    <div className="admin-list-section">
+                        <h3>Listado de Sponsors</h3>
+                        {loadingSponsors ? (
+                            <p>Cargando sponsors...</p>
+                        ) : sponsors.length === 0 ? (
+                            <p>No hay sponsors cargados en el sistema.</p>
+                        ) : (
+                            <table className="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Nivel</th>
+                                        <th>Activo</th>
+                                        <th>Orden</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {sponsors.map((sponsorItem) => (
+                                        <tr key={sponsorItem.id}>
+                                            <td>{sponsorItem.id}</td>
+                                            <td>{sponsorItem.name}</td>
+                                            <td>{sponsorItem.level || 'N/A'}</td>
+                                            <td>{sponsorItem.is_active ? 'Sí' : 'No'}</td>
+                                            <td>{sponsorItem.order !== null ? sponsorItem.order : 'N/A'}</td>
+                                            <td className="admin-actions">
+                                                <button onClick={() => handleEditSponsor(sponsorItem)} className="admin-button edit-button">Editar</button>
+                                                {sponsorItem.is_active && (
+                                                    <button onClick={() => handleSoftDeleteSponsor(sponsorItem.id)} className="admin-button delete-button">Desactivar</button>
+                                                )}
+                                                {!sponsorItem.is_active && (
+                                                    <button className="admin-button activate-button" disabled>Ya Inactivo</button>
                                                 )}
                                             </td>
                                         </tr>

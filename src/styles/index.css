@@ -22,6 +22,7 @@
 @import url('./components/admin/adminNewsPage.css');
 @import url('./components/admin/adminPges.css');
 @import url('./components/admin/CategoryForm.css');
+@import url('./components/admin/SponsorForm.css');
 
 * {
   font-family: 'Montserrat', sans-serif;
