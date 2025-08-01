@@ -1,11 +1,12 @@
-// src/api/axiosConfig.js (o src/utils/axiosConfig.js)
+// src/utils/axiosConfig.js
+
 import axios from 'axios';
 import { store } from '../redux/store'; // Importa tu store de Redux
 
-// Define la URL base de tu backend
-const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://your-production-api.com/api' // Cambia esto por tu URL de producción
-    : 'http://localhost:3000/api'; // URL de desarrollo
+// La URL base del backend ahora se toma de la variable de entorno de Vite
+// Netlify inyecta esta variable en el entorno de producción
+// y Vite la usa en el entorno de desarrollo (desde .env.development, etc.)
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
@@ -17,10 +18,7 @@ const axiosInstance = axios.create({
 // Interceptor de REQUEST: Añade el token de autenticación a cada petición
 axiosInstance.interceptors.request.use(
     (config) => {
-        // Obtén el token del estado actual de Redux
         const token = store.getState().auth.token;
-
-        // Si el token existe, añádelo al encabezado de Autorización
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -31,22 +29,13 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-// Interceptor de RESPONSE (opcional pero recomendado para manejar tokens expirados, etc.)
+// Interceptor de RESPONSE (opcional pero recomendado)
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Si el token expiró o es inválido (respuesta 401 Unauthorized)
         if (error.response && error.response.status === 401) {
-            // Opcional: Despacha la acción de logout de Redux si el token no es válido
-            // para limpiar el estado y redirigir al usuario al login.
-            // ¡CUIDADO! Esto podría causar un bucle si el login en sí devuelve 401.
-            // Solo haz esto si estás seguro de que el 401 es por un token inválido/expirado
-            // y no por credenciales incorrectas en el login.
-            // import { logout } from '../redux/slices/authSlice';
-            // store.dispatch(logout());
             console.warn("Token JWT expirado o inválido. Redirigiendo a login.");
-            // Puedes manejar la redirección aquí o en tu componente PrivateRoute
-            // Por ahora, solo lo registraremos y dejaremos que PrivateRoute maneje la redirección.
+            // Aquí podrías despachar una acción de logout, pero por ahora solo es un warning
         }
         return Promise.reject(error);
     }
