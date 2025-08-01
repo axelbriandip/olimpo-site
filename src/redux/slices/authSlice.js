@@ -4,8 +4,9 @@ import axios from 'axios'; // Necesitamos axios para las peticiones HTTP
 
 // Define la URL base de tu backend
 const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://your-production-api.com/api' // Cambia esto por tu URL de producción
-    : 'http://localhost:3000/api'; // URL de desarrollo
+    // La URL CORREGIDA de tu backend en Render
+    ? 'https://olimpo-rxz7.onrender.com'
+    : 'http://localhost:3000'; // URL de desarrollo
 
 // 1. Define el estado inicial
 const initialState = {
@@ -22,6 +23,7 @@ export const login = createAsyncThunk(
     'auth/login', // Nombre de la acción
     async ({ username, password }, { rejectWithValue }) => {
         try {
+            // El prefijo '/auth/login' se añade aquí, ya que la URL base es 'https://...'
             const response = await axios.post(`${API_BASE_URL}/auth/login`, { username, password });
             // Almacena el token en localStorage
             localStorage.setItem('token', response.data.token);
