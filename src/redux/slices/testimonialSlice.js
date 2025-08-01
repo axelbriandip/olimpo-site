@@ -6,7 +6,7 @@ import axios from 'axios';
 // Define la URL base de tu backend
 // ¡IMPORTANTE! Cambia 'https://your-production-api.com/api' por tu URL real de producción cuando deployes.
 const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://olimpo-rxz7.onrender.com'
+    ? 'https://olimpo-rxz7.onrender.com/api'
     : 'http://localhost:3000/api';
 
 // Define el estado inicial para los testimonios
