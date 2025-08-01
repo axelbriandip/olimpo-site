@@ -2,7 +2,7 @@
 import axiosInstance from '../utils/axiosConfig';
 import uploadService from './upload.service'; // Importa el servicio de subida genérico
 
-const SPONSOR_API_URL = '/sponsors'; // Asume tu endpoint para sponsors
+const SPONSOR_API_URL = '/api/sponsors'; // Asume tu endpoint para sponsors
 
 const sponsorService = {
     /**
