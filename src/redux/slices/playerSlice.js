@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://your-production-api.com/api'
+    ? 'https://olimpo-rxz7.onrender.com'
     : 'http://localhost:3000/api';
 
 // 👉 Thunk para obtener jugadores

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios'; // Asegúrate de tener axios instalado: npm install axios
 
 // Define tu URL base de la API
-const API_BASE_URL = 'http://localhost:3000/api'; // Ajusta esto a la URL de tu backend
+const API_BASE_URL = 'https://olimpo-rxz7.onrender.com'; // Ajusta esto a la URL de tu backend
 
 // Thunk asíncrono para cargar los eventos históricos
 export const fetchHistoryEvents = createAsyncThunk(

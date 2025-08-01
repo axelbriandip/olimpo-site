@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Define la URL base de tu API de partidos
-const MATCHES_API_URL = 'http://localhost:3000/api/matches'; // ¡Asegúrate de que esta URL sea correcta!
+const MATCHES_API_URL = 'https://olimpo-rxz7.onrender.com'; // ¡Asegúrate de que esta URL sea correcta!
 
 // Acción asíncrona para obtener todos los partidos
 export const fetchMatches = createAsyncThunk(
