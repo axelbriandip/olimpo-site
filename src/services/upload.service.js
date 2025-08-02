@@ -16,23 +16,29 @@ const uploadService = {
             // Construye la URL de subida dinámica
             let uploadUrl;
             if (type === 'players') {
-                uploadUrl = '/upload/players';
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = '/api/upload/players';
             } else if (type === 'news') {
-                uploadUrl = '/upload/news';
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = '/api/upload/news';
             } else if (type.startsWith('history/')) {
-                uploadUrl = `/upload/${type}`;
-            } else if (type.startsWith('identity-')) { // Para 'identity-logo', 'identity-hero', 'identity-mission', 'identity-vision', 'identity-values'
-                const subType = type.split('-')[1]; // Extrae 'logo', 'hero', 'mission', 'vision', 'values'
-                uploadUrl = `/upload/identity/${subType}`;
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = `/api/upload/${type}`;
+            } else if (type.startsWith('identity-')) {
+                const subType = type.split('-')[1];
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = `/api/upload/identity/${subType}`;
             } else if (type === 'monthly-player-image') {
-                uploadUrl = '/upload/monthly-player-image';
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = '/api/upload/monthly-player-image';
             } else if (type === 'testimonial-photo') {
-                uploadUrl = '/upload/testimonial-photo';
-            } else if (type.startsWith('sponsors-')) { // <--- NUEVO: Para 'sponsors-main', 'sponsors-black', 'sponsors-white'
-                const subType = type.split('-')[1]; // Extrae 'main', 'black', 'white'
-                uploadUrl = `/upload/sponsors/${subType}`;
-            }
-            else {
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = '/api/upload/testimonial-photo';
+            } else if (type.startsWith('sponsors-')) {
+                const subType = type.split('-')[1];
+                // CORRECCIÓN: Se agrega '/api'
+                uploadUrl = `/api/upload/sponsors/${subType}`;
+            } else {
                 throw new Error('Tipo de subida de imagen no reconocido.');
             }
 
@@ -41,6 +47,7 @@ const uploadService = {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            // El backend devuelve la URL de la imagen en imageUrl o fileUrl
             return response.data.imageUrl || response.data.fileUrl;
         } catch (error) {
             console.error(`Error al subir imagen de tipo ${type}:`, error.response?.data || error.message);
