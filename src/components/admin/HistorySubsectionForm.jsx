@@ -92,11 +92,9 @@ const HistorySubsectionForm = ({ historyEventId, historySubsection, onClose, onS
 
             // Si se seleccionó un nuevo archivo, subirlo primero
             if (selectedFile) {
-                // Asumiendo que historyService.uploadImage devuelve la URL final de la imagen
                 finalImageUrl = await historyService.uploadImage(selectedFile, 'subsection'); // Pasa 'subsection' para indicar el tipo de subida
             } else if (formData.imageUrl === '' && !selectedFile && historySubsection?.imageUrl) {
                 // Caso: el usuario eliminó la URL de la imagen (o deseleccionó el archivo)
-                // y no se seleccionó un nuevo archivo. Establecer imageUrl a null para borrarla del backend
                 finalImageUrl = null;
             }
 
@@ -147,8 +145,8 @@ const HistorySubsectionForm = ({ historyEventId, historySubsection, onClose, onS
 
                 {/* Campo de subida de imagen */}
                 <div className="form-group">
-                    <label htmlFor="imageUrl">Imagen de Subsección:</label>
-                    <input type="file" id="imageUrl" name="imageUrl" accept="image/*" onChange={handleFileChange} />
+                    <label htmlFor="file">Imagen de Subsección:</label>
+                    <input type="file" id="file" name="file" accept="image/*" onChange={handleFileChange} />
                     {imagePreview && (
                         <div className="history-subsection-form-img-preview-wrapper">
                             <img src={imagePreview} alt="Preview" className="history-subsection-form-img-preview" />
@@ -159,8 +157,8 @@ const HistorySubsectionForm = ({ historyEventId, historySubsection, onClose, onS
                                     setSelectedFile(null);
                                     setImagePreview('');
                                     setFormData(prev => ({ ...prev, imageUrl: '' }));
-                                    if (document.getElementById('imageUrl')) {
-                                        document.getElementById('imageUrl').value = '';
+                                    if (document.getElementById('file')) {
+                                        document.getElementById('file').value = '';
                                     }
                                 }}
                             >

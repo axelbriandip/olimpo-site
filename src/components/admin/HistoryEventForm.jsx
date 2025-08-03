@@ -94,7 +94,8 @@ const HistoryEventForm = ({ historyEvent, onClose, onSave }) => {
             // Si se seleccionó un nuevo archivo, subirlo primero
             if (selectedFile) {
                 // Asumiendo que historyService.uploadImage devuelve la URL final de la imagen
-                finalImageUrl = await historyService.uploadImage(selectedFile, 'event'); // Pasa 'event' para indicar el tipo de subida
+                // NOTA: El tipo de subida ('event') ahora se maneja en el backend. Aquí solo pasamos el archivo.
+                finalImageUrl = await historyService.uploadImage(selectedFile, 'event');
             } else if (formData.imageUrl === '' && !selectedFile && historyEvent?.imageUrl) {
                 // Caso: el usuario eliminó la URL de la imagen (o deseleccionó el archivo)
                 // y no se seleccionó un nuevo archivo. Establecer imageUrl a null para borrarla del backend
@@ -166,8 +167,8 @@ const HistoryEventForm = ({ historyEvent, onClose, onSave }) => {
 
                 {/* Campo de subida de imagen */}
                 <div className="form-group">
-                    <label htmlFor="imageUrl">Imagen del Evento:</label>
-                    <input type="file" id="imageUrl" name="imageUrl" accept="image/*" onChange={handleFileChange} />
+                    <label htmlFor="file">Imagen del Evento:</label>
+                    <input type="file" id="file" name="file" accept="image/*" onChange={handleFileChange} />
                     {imagePreview && (
                         <div className="history-event-form-img-preview-wrapper">
                             <img src={imagePreview} alt="Preview" className="history-event-form-img-preview" />
@@ -178,8 +179,8 @@ const HistoryEventForm = ({ historyEvent, onClose, onSave }) => {
                                     setSelectedFile(null);
                                     setImagePreview('');
                                     setFormData(prev => ({ ...prev, imageUrl: '' }));
-                                    if (document.getElementById('imageUrl')) {
-                                        document.getElementById('imageUrl').value = '';
+                                    if (document.getElementById('file')) {
+                                        document.getElementById('file').value = '';
                                     }
                                 }}
                             >

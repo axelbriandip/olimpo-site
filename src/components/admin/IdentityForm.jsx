@@ -70,8 +70,6 @@ const IdentityForm = ({ identity, onSave }) => {
         } else {
             setterPreview(currentUrl || '');
         }
-        // ¡IMPORTANTE! La línea que reseteaba el input ha sido eliminada de aquí.
-        // El input se reseteará solo cuando se haga clic en el botón 'X'.
     };
 
     const handleRemoveImage = (setterFile, setterPreview, fieldName, fileInputId) => () => {
@@ -151,7 +149,7 @@ const IdentityForm = ({ identity, onSave }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="missionImage">Imagen de Misión:</label>
-                    <input type="file" id="missionImage" name="missionImage" accept="image/*" onChange={handleFileChange(setSelectedMissionFile, setMissionPreview, formData.missionImageUrl)} />
+                    <input type="file" id="missionImage" name="file" accept="image/*" onChange={handleFileChange(setSelectedMissionFile, setMissionPreview, formData.missionImageUrl)} />
                     {missionPreview && (
                         <div className="identity-form-img-preview-wrapper">
                             <img src={missionPreview} alt="Misión Preview" className="identity-form-img-preview" />
@@ -170,7 +168,7 @@ const IdentityForm = ({ identity, onSave }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="visionImage">Imagen de Visión:</label>
-                    <input type="file" id="visionImage" name="visionImage" accept="image/*" onChange={handleFileChange(setSelectedVisionFile, setVisionPreview, formData.visionImageUrl)} />
+                    <input type="file" id="visionImage" name="file" accept="image/*" onChange={handleFileChange(setSelectedVisionFile, setVisionPreview, formData.visionImageUrl)} />
                     {visionPreview && (
                         <div className="identity-form-img-preview-wrapper">
                             <img src={visionPreview} alt="Visión Preview" className="identity-form-img-preview" />
@@ -189,7 +187,7 @@ const IdentityForm = ({ identity, onSave }) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="valuesImage">Imagen de Valores:</label>
-                    <input type="file" id="valuesImage" name="valuesImage" accept="image/*" onChange={handleFileChange(setSelectedValuesFile, setValuesPreview, formData.valuesImageUrl)} />
+                    <input type="file" id="valuesImage" name="file" accept="image/*" onChange={handleFileChange(setSelectedValuesFile, setValuesPreview, formData.valuesImageUrl)} />
                     {valuesPreview && (
                         <div className="identity-form-img-preview-wrapper">
                             <img src={valuesPreview} alt="Valores Preview" className="identity-form-img-preview" />
