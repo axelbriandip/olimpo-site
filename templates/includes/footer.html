@@ -1,8 +1,84 @@
-<footer class="text-center bg-brand text-white py-4 mt-auto">
+{% load static %}
+
+<footer class="bg-brand text-white pt-5 pb-3 mt-auto border-top border-4 border-warning">
     <div class="container">
-        <p>&copy; 2024 Club Olimpo. Todos los derechos reservados.</p>
-        <small>
-            <a href="/admin" target="_blank" class="text-gold text-decoration-none">Acceso Admin</a>
-        </small>
+        <div class="row">
+            
+            <div class="col-lg-4 mb-5 mb-lg-0 text-center text-lg-start">
+                <a href="/" class="d-inline-block mb-3 text-decoration-none">
+                    <img src="{% static 'img/escudo-olimpo-blanco.png' %}" alt="Club Olimpo" height="100" class="mb-2">
+                </a>
+                <p class="text-white-50 small mt-2 pe-lg-5">
+                    Más que un club, una familia. Orgullo de nuestra ciudad y cuna de grandes deportistas desde su fundación.
+                </p>
+            </div>
+
+            <div class="col-6 col-lg-2 mb-4 mb-lg-0">
+                <h6 class="text-gold fw-bold text-uppercase mb-3">Institucional</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Historia</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Directiva</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Estatuto</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Socios</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Sede Social</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-lg-2 mb-4 mb-lg-0">
+                <h6 class="text-gold fw-bold text-uppercase mb-3">Fútbol</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Primera</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Reserva</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Inferiores</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Fixture</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Estadio</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4">
+                <h6 class="text-gold fw-bold text-uppercase mb-3">Contacto</h6>
+                <ul class="list-unstyled text-white-50 small mb-4">
+                    <li class="mb-2 d-flex align-items-start">
+                        <i class="fas fa-map-marker-alt text-gold mt-1 me-3"></i>
+                        <span>Av. Siempre Viva 123<br>Ciudad de Olimpo, CP 1234</span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fas fa-phone text-gold me-3"></i>
+                        <span>(011) 4567-8900</span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fas fa-envelope text-gold me-3"></i>
+                        <span>info@clubolimpo.com</span>
+                    </li>
+                </ul>
+
+                <div class="d-flex gap-2">
+                    <a href="#" class="btn btn-outline-light rounded-circle social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light rounded-circle social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light rounded-circle social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light rounded-circle social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-secondary my-5">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-white-50">
+            <p class="mb-2 mb-md-0">&copy; {% now "Y" %} Club Olimpo. Todos los derechos reservados.</p>
+            <div>
+                <a href="#" class="text-white-50 text-decoration-none me-3">Privacidad</a>
+                <a href="/admin" target="_blank" class="text-gold text-decoration-none fw-bold">
+                    <i class="fas fa-lock me-1"></i> Área Admin
+                </a>
+            </div>
+        </div>
     </div>
 </footer>

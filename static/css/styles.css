@@ -124,3 +124,11 @@ a {
     color: var(--brand-gold);
     border-color: var(--brand-gold);
 }
+
+/* Efecto hover dorado para enlaces del footer */
+.hover-gold:hover {
+    color: var(--brand-gold) !important;
+    padding-left: 5px;
+    /* Pequeño movimiento a la derecha */
+    transition: all 0.2s ease;
+}
