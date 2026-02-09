@@ -1,0 +1,126 @@
+/* 1. FUENTES */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap');
+
+/* 2. VARIABLES GLOBALES (MODO CLARO POR DEFECTO) */
+:root {
+    /* --- PALETA DE MARCA (No cambian nunca) --- */
+    --brand-blue: #01197e;
+    /* Tu Azul Oficial */
+    --brand-gold: #D4AF37;
+    /* Dorado metálico (puedes ajustarlo) */
+
+    /* --- VARIABLES SEMÁNTICAS (Estas cambiarán en modo oscuro) --- */
+    --bg-body: #ffffff;
+    /* Fondo principal */
+    --bg-surface: #f8f9fa;
+    /* Fondo de tarjetas o secciones secundarias */
+    --text-main: #212529;
+    /* Color de texto principal */
+    --text-muted: #6c757d;
+    /* Color de texto secundario */
+    --border-color: #dee2e6;
+    /* Color de bordes sutiles */
+
+    /* --- NAVEGACIÓN Y FOOTER --- */
+    --nav-bg: var(--brand-blue);
+    --nav-text: #ffffff;
+}
+
+/* 3. MODO OSCURO (Preparado para el futuro) */
+/* Cuando agreguemos un botón que ponga el atributo data-theme="dark" al body, esto se activa */
+[data-theme="dark"] {
+    --bg-body: #121212;
+    /* Negro suave (mejor que #000 para la vista) */
+    --bg-surface: #1e1e1e;
+    /* Gris oscuro para tarjetas */
+    --text-main: #e0e0e0;
+    /* Blanco hueso (no quema los ojos) */
+    --text-muted: #a0a0a0;
+    --border-color: #333333;
+
+    /* En modo oscuro, quizás quieras que el Nav siga siendo azul o se vuelva negro */
+    /* --nav-bg: #000000; (Descomenta si quieres nav negro en modo oscuro) */
+}
+
+/* 4. ESTILOS BASE */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Open Sans', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    /* Transición suave al cambiar de modo */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    /* Bold */
+}
+
+a {
+    color: var(--brand-blue);
+    /* Los enlaces son azules por defecto */
+    text-decoration: none;
+}
+
+/* 5. CLASES DE UTILIDAD PERSONALIZADAS */
+
+/* Fondos */
+.bg-brand {
+    background-color: var(--brand-blue) !important;
+    color: white;
+}
+
+.bg-gold {
+    background-color: var(--brand-gold) !important;
+    color: var(--brand-blue);
+}
+
+.bg-surface {
+    background-color: var(--bg-surface) !important;
+}
+
+/* Textos */
+.text-brand {
+    color: var(--brand-blue) !important;
+}
+
+.text-gold {
+    color: var(--brand-gold) !important;
+}
+
+/* Botones */
+.btn-brand {
+    background-color: var(--brand-blue);
+    color: white;
+    border: 2px solid var(--brand-blue);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.btn-brand:hover {
+    background-color: var(--brand-gold);
+    /* Efecto hover dorado */
+    color: var(--brand-blue);
+    /* Texto azul */
+    border-color: var(--brand-gold);
+}
+
+.btn-outline-brand {
+    background-color: transparent;
+    color: var(--brand-blue);
+    border: 2px solid var(--brand-blue);
+}
+
+/* Ajustes específicos para Dark Mode automático */
+[data-theme="dark"] .btn-outline-brand {
+    color: var(--brand-gold);
+    border-color: var(--brand-gold);
+}

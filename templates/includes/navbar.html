@@ -1,0 +1,74 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-brand shadow-sm">
+    <div class="container">
+        
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <span class="fw-bold text-gold" style="letter-spacing: 1px;">CLUB OLIMPO</span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold text-uppercase">
+                
+                <li class="nav-item">
+                    <a class="nav-link active text-gold" aria-current="page" href="/">Inicio</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        El Club
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow">
+                        <li><a class="dropdown-item" href="#">Historia</a></li>
+                        <li><a class="dropdown-item" href="#">Comisión Directiva</a></li>
+                        <li><a class="dropdown-item" href="#">Estatuto / Transparencia</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Contacto</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Fútbol
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow">
+                        <li><h6 class="dropdown-header text-muted">Planteles</h6></li>
+                        <li><a class="dropdown-item" href="#">Primera División</a></li>
+                        <li><a class="dropdown-item" href="#">Reserva</a></li>
+                        <li><a class="dropdown-item" href="#">Juveniles / Inferiores</a></li>
+                        <li><a class="dropdown-item" href="#">Infantiles</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header text-muted">Competencia</h6></li>
+                        <li><a class="dropdown-item" href="#">Resultados / Fixture</a></li>
+                        <li><a class="dropdown-item" href="#">Tabla de Posiciones</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Noticias</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Multimedia
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow">
+                        <li><a class="dropdown-item" href="#">Galería de Fotos</a></li>
+                        <li><a class="dropdown-item" href="#">Videos</a></li>
+                    </ul>
+                </li>
+
+                 {% comment %} <li class="nav-item ms-lg-3">
+                    <a class="btn btn-outline-light btn-sm mt-1 mt-lg-0 rounded-pill px-3" href="#">
+                        Hacete Socio
+                    </a>
+                </li> {% endcomment %}
+
+            </ul>
+        </div>
+    </div>
+</nav
