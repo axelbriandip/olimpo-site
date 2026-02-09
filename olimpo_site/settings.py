@@ -32,13 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Mis apps:
+    
+    # Mis apps
     'sport',
     'club',
 ]
@@ -123,3 +125,40 @@ STATIC_URL = 'static/'
 # Configuración de archivos multimedia (Media config)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Configuración visual de JAZZMIN
+JAZZMIN_SETTINGS = {
+    # Título en la pestaña del navegador
+    "site_title": "Admin Olimpo",
+    
+    # Título en la pantalla de inicio de sesión (Login)
+    "site_header": "Gestión Club Olimpo",
+    
+    # Título en la barra superior (Brand)
+    "site_brand": "Club Olimpo",
+
+    # Mensaje de bienvenida en el login
+    "welcome_sign": "Bienvenido al Panel de Gestión",
+    
+    # Copyright al pie de página
+    "copyright": "Club Olimpo",
+    
+    # Opciones del menú lateral
+    "search_model": ["sport.Player", "sport.Match"], # Buscador global (busca jugadores o partidos)
+    
+    # Iconos para las apps (opcional, le da un toque visual)
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        
+        # Mis Apps
+        "sport.Player": "fas fa-tshirt",
+        "sport.Team": "fas fa-shield-alt",
+        "sport.Match": "fas fa-futbol",
+        "sport.Tournament": "fas fa-trophy",
+        "club.News": "fas fa-newspaper",
+    },
+
+    "show_ui_builder": True,
+}
