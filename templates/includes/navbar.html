@@ -1,11 +1,11 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-brand shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-brand shadow-sm sticky-top">
     <div class="container">
         
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
             <img src="{% static 'img/escudo-olimpo.png' %}" alt="Escudo Club Olimpo" height="50" class="d-inline-block align-text-top">
-            <span class="fw-bold d-none d-sm-block" style="letter-spacing: 1px;">CLUB OLIMPO</span>
+            <span class="fw-bold text-white d-none d-sm-block" style="letter-spacing: 1px;">CLUB OLIMPO</span>
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,63 +13,60 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold text-uppercase">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold text-uppercase small">
                 
                 <li class="nav-item">
-                    <a class="nav-link active text-gold" aria-current="page" href="/">Inicio</a>
+                    <a class="nav-link hover-gold {% if request.resolver_match.url_name == 'home' %}text-gold active{% else %}text-white{% endif %}" 
+                       href="{% url 'home' %}">Inicio</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle hover-gold {% if request.resolver_match.url_name in 'history board statute contact' %}text-gold active{% else %}text-white{% endif %}" 
+                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         El Club
                     </a>
                     <ul class="dropdown-menu border-0 shadow">
-                        <li><a class="dropdown-item" href="#">Historia</a></li>
-                        <li><a class="dropdown-item" href="#">Comisión Directiva</a></li>
-                        <li><a class="dropdown-item" href="#">Estatuto / Transparencia</a></li>
+                        <li><a class="dropdown-item" href="{% url 'history' %}">Historia</a></li>
+                        <li><a class="dropdown-item" href="{% url 'board' %}">Comisión Directiva</a></li>
+                        <li><a class="dropdown-item" href="{% url 'statute' %}">Estatuto / Transparencia</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Contacto</a></li>
+                        <li><a class="dropdown-item" href="{% url 'contact' %}">Contacto</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle hover-gold {% if request.resolver_match.url_name in 'first_team youth_league junior_league fixtures' %}text-gold active{% else %}text-white{% endif %}" 
+                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Fútbol
                     </a>
                     <ul class="dropdown-menu border-0 shadow">
                         <li><h6 class="dropdown-header text-muted">Planteles</h6></li>
-                        <li><a class="dropdown-item" href="#">Primera División</a></li>
-                        <li><a class="dropdown-item" href="#">Reserva</a></li>
-                        <li><a class="dropdown-item" href="#">Juveniles / Inferiores</a></li>
-                        <li><a class="dropdown-item" href="#">Infantiles</a></li>
+                        <li><a class="dropdown-item" href="{% url 'first_team' %}">Primera División</a></li>
+                        <li><a class="dropdown-item" href="{% url 'youth_league' %}">Juveniles</a></li>
+                        <li><a class="dropdown-item" href="{% url 'junior_league' %}">Infantiles</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><h6 class="dropdown-header text-muted">Competencia</h6></li>
-                        <li><a class="dropdown-item" href="#">Resultados / Fixture</a></li>
-                        <li><a class="dropdown-item" href="#">Tabla de Posiciones</a></li>
+                        <li><a class="dropdown-item" href="{% url 'fixtures' %}">Resultados / Fixture</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Noticias</a>
+                    <a class="nav-link hover-gold {% if request.resolver_match.url_name == 'news_list' %}text-gold active{% else %}text-white{% endif %}" 
+                       href="{% url 'news_list' %}">Noticias</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle hover-gold {% if request.resolver_match.url_name in 'gallery videos' %}text-gold active{% else %}text-white{% endif %}" 
+                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Multimedia
                     </a>
                     <ul class="dropdown-menu border-0 shadow">
-                        <li><a class="dropdown-item" href="#">Galería de Fotos</a></li>
-                        <li><a class="dropdown-item" href="#">Videos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'gallery' %}">Galería de Fotos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'videos' %}">Videos</a></li>
                     </ul>
                 </li>
-
-                 {% comment %} <li class="nav-item ms-lg-3">
-                    <a class="btn btn-outline-light btn-sm mt-1 mt-lg-0 rounded-pill px-3" href="#">
-                        Hacete Socio
-                    </a>
-                </li> {% endcomment %}
 
             </ul>
         </div>
     </div>
-</nav
+</nav>
